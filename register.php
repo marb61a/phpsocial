@@ -17,6 +17,35 @@
     $date = "";                 // User sign up date
     $error_array = "";          // Will hold any error messages
     
+    if(isset($_POST['register_button'])){
+        // The registration form values
+        // First Name
+        $fname = strip_tags($_POST['reg_fname']);           // Removes the HTML tags
+        $fname = str_replace(' ', '', $fname);              // Remove spaces
+        $fname = ucfirst(strtolower($fname));               // First letter to uppercase
+        
+        // Last Name
+        $lname = strip_tags($_POST['reg_lname']);           // Removes the HTML tags
+        $lname = str_replace(' ', '', $lname);              // Remove spaces
+        $lname = ucfirst(strtolower($lname));               // First letter to uppercase
+        
+        // Email
+        $em = strip_tags($_POST['reg_email']);              // Removes the HTML tags
+        $em = str_replace(' ', '', $em);                    // Remove spaces
+        $em = ucfirst(strtolower($em));                     // First letter to uppercase
+        
+        // Email2 (confirmation)
+        $em2 = strip_tags($_POST['reg_em2']);               // Removes the HTML tags
+        $em2 = str_replace(' ', '', $em2);                  // Remove spaces
+        $em2 = ucfirst(strtolower($em2));                   // First letter to uppercase
+        
+        // Password
+        $password = strip_tags($_POST['reg_password']);     // Removes the HTML tags
+        $password2 = strip_tags($_POST['reg_password2']);   // Removes the HTML tags
+        
+        $date = date("Y-m-d");                              // Current date
+
+    }
 ?>
 
 <html>
