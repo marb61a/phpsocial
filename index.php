@@ -1,11 +1,6 @@
 <?php
-    $con = mysqli_connect();
+    require 'config/config.php';
     
-    if (mysqli_connect_errno()) {
-        echo "Failed to connect: ".mysqli_connect_errno();
-    }
-    
-    $query = mysqli_query();
 ?>
 
 <html>
