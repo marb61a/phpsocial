@@ -13,6 +13,10 @@
     <body>
         <div class="wrapper">
             <div class="login_box">
+                <div class="login-header">
+                    <h1>PHPSocial</h1>
+                    Login or Signup below!!!
+                </div>
                 <form action="register,php" method="POST">
                     <input type="email" name="log_email" placeholder="Email Address" value="
                         <?php
