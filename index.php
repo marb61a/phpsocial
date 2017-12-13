@@ -1,5 +1,7 @@
 <?php
-    require 'config/config.php';
+    // Includes the header  
+    include("includes/header.php");
+    
     
 ?>
 
