@@ -24,8 +24,14 @@
         }
         
         if($i % 10 == 0){
-            
+            $date_time = date('Y-m-d H:i:s', strtotime($date_time . "+1 hours 28 minutes 42 seconds"));
+        } elseif (i % 4 == 0) {
+            $date_time = date('Y-m-d H:i:s', strtotime($date_time . "+51 minutes 2 seconds"));
+        } else {
+            $date_time = date('Y-m-d H:i:s', strtotime($date_time . "+24 minutes 17 seconds"));
         }
+        
+        $i++;
     }
     
 ?>
