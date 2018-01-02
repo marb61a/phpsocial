@@ -57,6 +57,39 @@
             // Set opened to yes for all messages for that user
             $set_viewed = $this->con->query("UPDATE messages SET opened='yes' WHERE user_to='$userLoggedIn' AND user_from='$other_user'");
             
+            $get_messages_query = mysqli_query($this->con, "SELECT * FROM messages WHERE (user_to='$userLoggedIn' AND user_from='$other_user')
+                OR (user_from='$userLoggedIn' AND user_to='$other_user') ORDER BY id ASC");
+            
+            while($row = mysqli_fetch_assoc($get_messages_query)){
+                $user_to = $row['user_to'];
+    			$user_from = $row['user_from'];
+    			$body = $row['body'];
+    			
+    			// If the user is logged in the div will be green and put on the left otherwise it will be blue
+    			$div_top = ($user_to == $userLoggedIn) ? "<div class='message' id='green'>" : "<div class='message' id='blue'>";
+    			
+    			// Concatenate with the message body
+    			$data = $data . $div_top . $body . "</div><br><br>";
+            }
+            
+                return $data;
+        }
+        
+        // Sends the message
+        public function sendMessage($user_to, $body, $date){
+            if($body != ""){
+                $userLoggedIn = $this->user_obj->getUsername();
+                
+                $send_message_query = mysqli_query($this->con, "INSERT INTO messages VALUES 
+                    ('', '$user_to', '$userLoggedIn', '$body', '$date', 'no', 'no', 'no')");
+            }
+        }
+        
+        // Get recent conversations in order, this is not for drop down and there is no infinite scroll
+        public function getConvos(){
+            
         }
     }
 ?>
+
+
