@@ -83,3 +83,46 @@ nav	a:hover {
 	border-bottom: 7px solid #e74c3c;
 }
 
+hr {
+	border: 1px solid #D3D3D3;
+	margin: 0;
+}
+
+input[type="submit"]{
+	width: 100px;
+	height: 30px;
+	border-radius: 5px;
+	margin: 7px 0 0 7px;
+	border: none;
+	color: #fff;
+}
+
+input[type="submit"]:active {
+	padding: 2px 0 0 2px;
+}
+
+.profile_left {
+	top: -10px;
+	width: 17%;
+	max-width: 240px;
+	min-width: 130px;
+	height: 100%;
+	float: left;
+	position: relative;
+	background-color: #37B0E9;
+	border-right: 10px solid #83D6FE;
+	color: #CBEAF8;
+	margin-right: 20px;
+}
+
+.top_bar {
+	width: 100%;
+	min-width: 1050px;
+	height: 40px;
+	background-color: #20aae5;
+	border-bottom: 0.25em solid #1894ca;
+	margin: 0 0 10px 0;
+	display: inline-flex;
+	position: fixed;
+	z-index: 10;
+}
