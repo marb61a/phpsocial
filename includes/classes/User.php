@@ -27,6 +27,35 @@
         
         public function getFirstAndLastName(){
             $username = $this->user['username'];
+            $name_query = mysqli_query($this->con, "SELECT first_name, last_name FROM users WHERE username='$username'");
+            $row = mysqli_fetch_assoc($name_query);
+            return $row['first_name']." ".$row['last_name'];
         }
+        
+        public function getFriendArray(){
+            $username = $this->user['username'];
+            $name_query = mysqli_query($this->con, "SELECT friend_array FROM users WHERE username='$username'");
+            $row = mysqli_fetch_assoc($name_query);
+            return $row['friend_array'];
+        }
+        
+        public function getProfilePic(){
+    		$username = $this->user['username'];
+    		$name_query = mysqli_query($this->con, "SELECT profile_pic FROM users WHERE username='$username'");
+    		$row = mysqli_fetch_assoc($name_query);
+    		return $row['profile_pic'];
+    	}
+    
+    	public function isClosed(){
+    		$username = $this->user['username'];
+    		$is_closed_query = mysqli_query($this->con, "SELECT user_closed FROM users WHERE username='$username'");
+    		$row = mysqli_fetch_assoc($is_closed_query);
+    		return $row['user_closed'];
+    	}
+    	
+    	// Check if the main user is friends with the user
+    	public function isFriend(){
+    	    
+    	}
     }
 ?>
