@@ -126,3 +126,59 @@ input[type="submit"]:active {
 	position: fixed;
 	z-index: 10;
 }
+
+.logo {
+	font-family: 'Bellota-BoldItalic', sans-serif;
+	margin-left: 10px;
+	color: #1086BA;
+	text-shadow: #73B6E2 0.5px 0.5px 0px;
+	font-size: 180%;
+	position: relative;
+	top: 9px;
+	font-size: 30px;
+}
+
+.footer{
+	width: 100%;
+	position: fixed;
+	bottom: 0px;
+	text-align: center;
+	color: #9297a2;
+	z-index: -10;
+	margin-bottom: 10px;
+}
+
+.wrapper {
+	margin: 0 auto;
+	top: 50px;
+	position: relative;
+	padding: 0 10px;
+	width: 75%;
+	min-width: 950;
+}
+
+.column {
+	background-color: #fff;
+	padding: 10px;
+	border: 1px solid #D3D3D3;
+	border-radius: 5px;
+	box-shadow: 2px 2px 1px #D3D3D3;
+	z-index: -1;
+}
+
+.profile_main_column {
+	min-width: 675px;
+	float: left;
+	width: 70%;
+	z-index: -1;
+}
+
+.main_column {
+	float: right;
+	width: 68%;
+	z-index: -1;
+	min-height: 152px;
+}
+
+
+
