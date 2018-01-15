@@ -180,5 +180,46 @@ input[type="submit"]:active {
 	min-height: 152px;
 }
 
+.user_details {
+	width: 250px;
+	float: left;
+	margin-bottom: 20px;
+}
+
+.user_details img {
+	height: 120px;
+	border-radius: 5px;
+	margin-right: 5px;
+}
+
+.user_details_left_right {
+	width: 125px;
+	display: inline-block;
+	position: absolute;
+}
+
+.swirl_form {
+	width: 100%;
+}
+
+.swirl_form textarea {
+	-webkit-transition: all 0.2s ease-in-out;
+  	-moz-transition: all 0.2s ease-in-out;
+	width: 83%;
+	max-width: 83%;
+	min-width: 83%;
+	height: 30px;
+	border-radius: 3px;
+	margin-right: 5px;
+	border: 1px solid #D3D3D3;
+	font-size: 12px;
+}
+
+textarea:focus {
+	outline: 0;
+}
+
+
+
 
 
