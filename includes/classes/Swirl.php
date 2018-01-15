@@ -53,8 +53,41 @@
                 }
                 
                 // Check to see if the user is friends with the user that posted
+                if($this->user_obj->isFriend($added_by)){
+                    // If the user is the one who posted then show the delete button
+                    if($userLoggedIn == $added_by){
+                        $delete_button = "<button class='delete_button btn-danger' id='post$id'>X</button>";
+                    } else {
+                        $delete_button = "";
+                    }
+                    
+                    $get_user_details = mysqli_query($this->con, "SELECT first_name, last_name, profile_pic FROM users WHERE username='$added_by'");
+                    $userRow = mysqli_fetch_assoc($get_user_details);
+                    
+                    // If hidden mode = no then use the profile picture of the user, if not use a random image
+                    if($hidden_mode == 'no'){
+                        $firstName = $userRow['first_name'];
+                        $lastName = $userRow['last_name'];
+                        $profile_pic = $userRow['profile_pic'];    
+                    } else {
+                        $firstName = 'Someone said: ';
+                        $lastName = '';
+                        // This is needed so Someone said does not link to a users profile
+                        $added_by = '';
+                        
+                        // A random number between 1 and 16
+                        $random_num = rand(1, 16);
+                        
+                        switch($random_num){
+                            
+                        }
+                    }
+                }
                 
+                ?>
+                <?php
             }
         }
     }
-?>
+  ?> 
+    
