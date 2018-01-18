@@ -87,7 +87,38 @@
         
         // Get recent conversations in order, this is not for drop down and there is no infinite scroll
         public function getConvos(){
+            $userLoggedIn = $this->user_obj->getUsername();
             
+            // A string to hold the data that will be returned
+            $return_string = "";
+            
+            // An array for usernames of conversations
+            $convos = array();
+            
+            $get_convos_query = mysqli_query($this->con, "SELECT user_to, user_from FROM messages WHERE user_to='$userLoggedIn' 
+            OR user_from='$userLoggedIn' ORDER BY id DESC");
+            
+            while($row = mysqli_fetch_assoc($get_convos_query)){
+                //Check to see if the user_logged_in sent or received the last message
+                $user_to_push = ($row['user_to'] != $userLoggedIn) ? $row['user_to'] : $row['user_from'];
+                
+                // If the username is not already in the array then push it in
+                if(!in_array($user_to_push, $convos))
+                    array_push($convos, $user_to_push);
+            }
+            
+            // An array of usernames that user_logged_in has conversed with
+            foreach($convos as $username){
+                //User object for user found
+                $user_found_obj = new User($this->con, $username);
+                
+                // Get the latest message between user_logged_in and user_found
+                $latest_message_details = $this->getLatestMessage($userLoggedIn, $username);
+                
+                // If the message body is greater than 11 then add '...' 
+                $dots = strlen($latest_message_details[1]) >= 12 ? "....":"";
+                
+            }
         }
     }
 ?>
