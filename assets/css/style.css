@@ -219,6 +219,53 @@ textarea:focus {
 	outline: 0;
 }
 
+.swirl_form input[type="submit"] {
+	-webkit-transition: all 0.2s ease-in-out;
+  	-moz-transition: all 0.2s ease-in-out;
+  	width: 11%;
+  	min-width: 7%;
+  	height: 30px;
+  	border: none;
+  	border-radius: 10px;
+  	background-color: #3498db;
+	font-family: 'Bellota-BoldItalic', sans-serif;
+	color: #2674A8;
+	text-shadow: #73B6E2 0.5px 0.5px 0px;
+	font-size: 90%;
+	position: absolute;
+	border-radius: 3px;
+	outline: none;
+	margin: 0;
+}
+
+.swirl_form input[type="submit"]:active {
+  padding: 5px 4px 4px 5px;
+}
+
+.swirl_form input[type='checkbox'] {
+	margin: 0 0 2px 0;
+	height: 20px;
+}
+
+.swirl_post {
+	width: 96%;
+	font-size: 15px;
+	padding: 0px 5px;
+	cursor: pointer;
+}
+
+.newsfeedPostOptions {
+	padding: 0px;
+	text-decoration: none;
+	color: #3498db;
+	border: none;
+}
+
+.newsfeedPostOptions iframe {
+	border: 0px;
+	height: 17px;
+	width: 120px;
+}
 
 
 
