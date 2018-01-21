@@ -22,3 +22,29 @@ function getLiveSearchUsers(value, user){
         }        
     });
 }
+
+// This gets users as a user is typing into the search box and presents results in a drop down table
+function getUsers(value, user){
+    $.post("includes/handlers/ajax_friend_search.php", 
+    {
+        query: value,
+        userLoggedIn: user
+    }, function(data){
+       $(".results").html(data); 
+    });
+}
+
+// This gets notifications, messages or friend requests for loggedin userand presents results in a drop down table
+function getDropdownData(user, type){
+    if ($(".dropdown_data_window").css("height") == "0px"){
+        // A variable to hold the name of the page to send an AJAX request to
+        var pageName;
+        
+        if(type == 'notification'){
+            // Page to load notifications
+            pageName = "ajax_load_notifications.php";
+            $("span").remove("#unread_notification");
+        }
+    }
+}
+
