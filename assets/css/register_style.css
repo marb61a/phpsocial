@@ -67,7 +67,50 @@ wrapper {
 }
 
 input[type="submit"]{
-    
+    background-color: #3498db;
+	border: 1px solid #3498db;
+	padding: 5px 10px 5px 10px;
+	border-radius: 3px;
+	margin: 5px 0 10px 0;
+	font-family: 'Bellota-BoldItalic', sans-serif;
+	color: #1376B6;
+	text-shadow: #73B6E2 0.5px 0.5px 0px;
+	font-size: 100%;
+}
+
+input[type="text"], input[type="email"],input[type="password"]{
+	border: 1px solid #e5e5e5;
+	margin-top: 5px;
+	width: 70%;
+	height: 35px;
+	margin-bottom: 10px;
+	padding-left: 5px;
+}
+
+input[type="text"]:hover, input[type="email"]:hover,input[type="password"]:hover {
+	border-color: #3498db;
+}
+
+.icon {
+	right: 9px;
+	padding-left: 3px;
+	border-left: 1px solid #ccc;
+	position: absolute;
+	top: -1px;
+	width: 29px;
+	height: 29px;
+	font-size: 15px;
+	line-height: 29px !important;
+	text-align: center;
+	color: #ccc;
+}
+
+#second {
+	display: none;
+}
+
+label {
+	position: relative;
 }
 
 form {
