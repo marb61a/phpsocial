@@ -44,7 +44,34 @@ function getDropdownData(user, type){
             // Page to load notifications
             pageName = "ajax_load_notifications.php";
             $("span").remove("#unread_notification");
+        } else if (type = 'message'){
+            // Page to load messages
+            pageName = "ajax_load_messages.php";
+            $("span").remove("#unread_message");
+        } else if (type = 'friend_requests'){
+            // Page to load friend requests
+             pageName = "ajax_load_friend_requests.php";
         }
+        
+        var ajaxreq = $.ajax({
+            url:"includes/handlers/"+pageName,
+            type:"POST",
+            data:"page=1&userLoggedIn=" + user,
+            cache:false,
+            success: function(response){
+                // Append with new posts
+                $('.dropdown_data_window').html(response);
+                $('.dropdown_data_window').css({"padding": "0px", "height": "280px"});
+                // Set hidden input field  to the type of data being loaded
+                $('#dropdown_data_type').val(type);
+            }
+        });
+    } else {
+        $(".dropdown_data_window").css({"padding": "0px", "height": "0px"});
+        $(".dropdown_data_window").html("");
     }
 }
 
+$(document).click(function(e){
+    
+}
