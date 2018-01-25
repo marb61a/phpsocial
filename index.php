@@ -74,8 +74,36 @@
             var page = $('.swirls_area').find('.nextpage').val();
 		    var noMorePosts = $('.swirls_area').find('.noMorePosts').val();
 		    
+		    if((document.body.scrollHeight == document.body.scrollTop + window.innerHeight) && noMorePosts == 'false'){
+		        // Show the loading icon
+		        $('#loading').show();
+		        
+		        var ajaxreq = $.ajax({
+		            url:"includes/handlers/ajax_load_posts.php",
+			        type:"POST",
+			        data:"page=" + page + "&userLoggedIn=" + userLoggedIn,
+			        cache:false,
+			        
+			        success: function(){
+			            // Remove the  current .nextPage (hidden input)  
+			            $('.swirls_area').find('.nextPage').remove();
+			            
+			            // Remove the current .noMorePosts (hidden input)
+			            $('.swirls_area').find('.noMorePosts').remove();
+			            
+			            // Hide the loading icon
+			            $('#loading').hide();
+			            
+			            // Append with new posts
+			            $('.swirls_area').append(response);
+			        }
+		        });
+		    }
+		    
+		    return false;
         });
-    });
+    }); // End of the document.ready
+    
 </script>
 
 <?php //include("includes/footer.php");?>
