@@ -267,6 +267,57 @@ textarea:focus {
 	width: 120px;
 }
 
+#comment_iframe {
+	max-height: 250px;
+	width: 100%;
+	min-height: 10px;
+	border: none;
+}
 
+.swirl_profile_pic {
+	float: left;
+	margin-right: 5px;
+}
 
+.swirl_profile_pic img {
+	border-radius: 5px;
+	margin-right: 2px;
+}
+
+.commentBump {
+	background-color: #FFF;
+	border: none;
+	font-size: 14px;
+	color: #3498db;
+	padding: 0px;
+}
+
+.bump_value {
+	display: inline;
+	font-size: 14px;
+}
+
+#comment_form textarea {
+	border-color: #D3D3D3;
+	width: 85%;
+	height: 35px;
+	border-radius: 5px;
+	color: #616060;
+	font-size: 13px;
+	margin: 3px 3px 5px 3px;
+}
+
+#comment_form input[type='submit']{
+	border: none;
+	background-color: #3498db;
+	font-family: 'Bellota-BoldItalic', sans-serif;
+	color: #2674A8;
+	text-shadow: #73B6E2 0.5px 0.5px 0px;
+	border-radius: 5px;
+	width: 13%;
+	height: 35px;
+	margin-top: 3px;
+	margin-left: 3px;
+	position: absolute;
+}
 
