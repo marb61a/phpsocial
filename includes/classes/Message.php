@@ -118,6 +118,44 @@
                 // If the message body is greater than 11 then add '...' 
                 $dots = strlen($latest_message_details[1]) >= 12 ? "....":"";
                 
+                // Split the message at 13 characters
+                $split - str_split($latest_message_details[1], 12);
+                
+                $split = $split[0].$dots;
+                $return_string .= 
+                    "<a href='messages.php?u=$username'>
+                        <div class='user_found_messages'>
+							<img src='".$user_found_obj->getProfilePic()."' style='border-radius: 5px; margin-right: 5px;'>
+								".$user_found_obj->getFirstAndLastName()." 
+							<span class='timestamp_smaller' id='grey' >".$latest_message_details[2]."</span>
+							<p id='grey' style='margin: 0;'>".$latest_message_details[0].$split." </p>
+						</div>
+					</a>";
+            }
+            
+            return Sreturn_string;
+        }
+        
+        // Gets recent conversations in order, this time for drop down and includes infinite scroll
+        public function getConvosDropdown($data, $limit){
+            // The page number passed as a parameter
+            $page = $data['page'];
+            
+            // The username for user logged in
+            $userLoggedIn = $this->user_obj->getUsername();
+            
+            // A string to hold data that will be returned
+            $return_string = "";
+            
+            // An array for usernames of conversations
+            $convos = array();
+            
+            if($page ==1 ){
+                // Start at the first post
+                $start = 0;
+            } else {
+                // Start where the last loaded posts left off
+                $start = ($page - 1) * $limit;
             }
         }
     }

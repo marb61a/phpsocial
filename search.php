@@ -73,7 +73,6 @@
 		            } else if($user_object->didSendRequest($user_found['username'])){
 		                // If a request has already been sent to the profile user and is awaiting response
 		                $button = '<input type="submit" name="" class="default" value="Request Sent">'
-		                
 		            } else {
 		                // If the users are not friends, show the add friend button
 		                $button = '<input type="submit" name="'.$user_found['username'].'" class="success" value="Add Friend">';
