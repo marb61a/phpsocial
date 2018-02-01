@@ -321,3 +321,58 @@ textarea:focus {
 	position: absolute;
 }
 
+.comment_section {
+	padding: 0 5px 5px 5px ;
+}
+
+.comment_section img {
+	margin: 0 3px 3px 3px;
+	border-radius: 3px;
+}
+
+.posted_by button {
+	height: 22px;
+	width: 22px;
+	padding: 0;
+	float: right;
+	border-radius: 4px;
+	right: -15px;
+	top: -8;
+	position: relative;
+}
+
+.profile_left input[type="submit"] {
+	width: 90%;
+	height: 30px;
+	border-radius: 5px;
+	margin: 7px 0 0 7px;
+}
+
+.profile_left input[type="submit"]:active {
+	padding: 2px 0 0 2px;
+}
+
+.danger {
+	background-color: #e74c3c;
+}
+
+.warning {
+	background-color: #f0ad4e;
+}
+
+.default {
+	background-color: #bdc3c7;
+}
+
+.success {
+	background-color: #2ecc71;
+}
+
+.info {
+	background-color: #3498db;
+}
+
+.deep_blue {
+	background-color: #0043F0;
+}
+
