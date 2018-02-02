@@ -376,3 +376,46 @@ textarea:focus {
 	background-color: #0043F0;
 }
 
+.main_column #decline_button {
+	background-color: #e74c3c;
+	width: 100px;
+}
+
+.main_column #save_details{
+	background-color: #3498db;
+	margin-bottom: 11px;
+	width: 130px;
+}
+
+.main_column #close_account{
+	background-color: #e74c3c;
+	width: 130px;
+}
+
+/* Search bar div */
+.search {
+	margin: 8px 0 0 15%;
+}
+
+.search #search-text-input {
+	border: thin solid  #e5e5e5;
+    float:left;
+    height:23px;
+    outline:0;
+    width:100px; 
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.button_holder{
+    background-color:#f1f1f1;
+    border: thin solid #e5e5e5;
+    cursor:pointer;
+    float:left;
+    height:21px;
+    text-align:center;
+    width:50px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+ 
