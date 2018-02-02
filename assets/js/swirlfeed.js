@@ -73,5 +73,31 @@ function getDropdownData(user, type){
 }
 
 $(document).click(function(e){
+    // Resize the post text box and submit button when user clicks on it
+    if($(e.target).is('#swirl_text')){
+        // Resize the textbox
+        changeHeight("swirl_text", "60px");
+        
+        // Resize the submit button
+        changeHeight("swirl_button", "60px");
+    } else if($('#swirl_text').length > 0){
+        // This resizes the post text box and submit button when user clicks off it
+        // Resize the textbox
+        changeHeight("swirl_text", "30px");
+        
+        // Resize the submit button
+        changeHeight("swirl_button", "30px");
+    }
     
-}
+    // If the user clicks away from search bar and search results, hide drop down results
+    
+});
+
+$(document).ready(function(){
+    // The user clicks on the search bar
+    $('#search-text-input').focus(function(){
+        // Make the width larger
+        $(this).animate({width: '250px'}, 500);
+    });
+    
+});
