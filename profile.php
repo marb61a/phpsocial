@@ -62,6 +62,40 @@
 <div class="profile_left">
     <img src="<?php echo $profile_username['profile_pic']; ?>">
     <div class="profile_left_right">
+        <?php $num_friends = substr_count($profile_username['friend_array'], "," ) - 1; ?>
+		<p><?php echo "Posts: ".$profile_username['num_posts']; ?></p>
+		<p><?php echo "Bumps: ".$profile_username['num_bumps']; ?></p>
+		<p><?php echo "Friends: ".$num_friends; ?></p>
+    </div>
+    
+    <!--- The buttons for a profile, add_friends etc -->
+    <form action="<?php echo $profile_username["username"]?>" method="POST">
+        <?php
+            // If a user account is closed then redirect
+            $profile_user = new User($con, $profile_username['username']);
+            
+            if($profile_user->isClosed() == "yes")
+			    header("Location: user_closed.php");
+			    
+			// A user object for logged_in user
+			$logged_in_user = new User($con, $user['username']);
+			
+			// If a user is not on their own profile
+			if($user['username'] != $profile_username['username']){
+			    if ($logged_in_user->isFriend($profile_username['username'])) 
+    				//If users are friends, show remove friend button. 
+    				echo '<input type="submit" name="removeFriend" class="danger" value="Remove Friend"><br>';
+			}
+        ?>
+    </form>
+</div>
+
+<div class="profile_main_column column">
+    <!--- Nav tabs --->
+    <ul class="nav nav-tabs" role="tablist" id="profileTabs">
+        
+    </ul>
+    <div class="tab-content">
         
     </div>
 </div>
