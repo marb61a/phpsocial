@@ -2,7 +2,21 @@
     // Includes the header  
     include("includes/header.php");
     
+    if(isset($_POST['swirl'])){
+    	// Check to see if the user is on a mobile device
+    	if ($iphone || $android || $palmpre || $ipod || $berry) 
+			$is_mobile = "yes";
+		else
+			$is_mobile = "no";
+		
+		// The value of the hidden mode check box, ticked means yes unticked means no
+		$isHidden = (isset($_POST['hidden_mode']) == 'yes') ? 'yes' : 'no'; 
+
+		$swirl = new Swirl($con, $userLoggedIn, $is_mobile);
+		$swirl->postSwirl($_POST['swirl_text'], $isHidden, 'none', $is_mobile);
+    }
     
+    // Weather Info
 ?>
 
 <!-- column for logged in user details on the left -->
@@ -22,12 +36,17 @@
 </div>
 
 <div class="main_column column" id="main_column">
-    <form class="">
-        
+    <form class="swirl_form" action="index.php" method="POST">
+        <input name="hidden_mode" value="yes" type="checkbox">
+        	Hidden Mode <br>
+    	<textarea naem="swirl_text" id="swirl_text" placeholder="Post a swirl!"></textarea>
+    	<input type="submit" name="swirl" id="swirl_button" value="Swirl">
+        <hr />
     </form>
     <br>
 	<hr style="margin-bottom: 15px;"/>
-	
+	<div class="swirls_area"></div>
+	<img id='loading' src='assets/images/icons/loading.gif'>
 </div>
 
 <!-- Trending Words Column-->
@@ -37,7 +56,15 @@
         <?php
             $sql = mysqli_query($con, "SELECT * FROM trends ORDER BY hits DESC LIMIT 9");
             foreach ($sql as $r) {
-                
+                $query=$r['title'];
+			    $wdot = strlen($query)>=14 ? "....":"";
+			    $sp_t = str_split($query,14);
+			    $sp_t = $sp_t[0];
+			    
+			    echo '<div style="padding:1px;">';
+			    echo $sp_t."".$wdot;
+			    echo '<div style="margin-top:5px;"></div>';
+			    echo "</div>";
             }
         ?>        
     </div>
