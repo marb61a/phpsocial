@@ -418,4 +418,57 @@ textarea:focus {
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
 }
+
+.button_holder img {
+	margin-top: 1px;
+	width: 20px;
+}
+
+.search_result {
+	padding: 10px;
+	border-bottom: 1px solid #DADADA;
+	height: 100px;
+}
+
+.result_profile_pic {
+	float: left;
+	margin-right: 10px;
+}
+
+.profile_left_info {
+	margin: 10px 0 0 3px;
+}
+
+.searchPageFriendButtons {
+	float: right;
+}
+
+/* Live search results */
+.search_results {
+   	background-color: #FFFFFF;
+   	border: 1px solid #DADADA;
+   	border-bottom: none;
+   	border-top: none;
+   	margin-top: 28px;
+}
+
+/* Search results (not live search in header) */
+.results{
+	background-color: #FFFFFF;
+	border: 1px solid #DADADA;
+   	border-bottom: none;
+   	width: 42%;
+   	position: absolute;
+}
+
+.search_results_footer{
+	padding: 5px 4px 0px 4px;
+	height: 22px;
+	border: 1px solid #DADADA;
+	border-top: none;
+	background-color: #20AAE5;
+	text-align: center;
+}
+
+
  
