@@ -17,4 +17,21 @@
         // If a query has one word only, search first names or last names
         mysqli_query($con, "SELECT * FROM users WHERE (first_name LIKE '$names[0]%' OR last_name LIKE '$names[0]%') AND user_closed='no' LIMIT 8");
     }
+    
+    if($query != ""){
+        while($usersReturnedArray = mysqli_fetch_array($usersReturned)){
+            $user = new User($con, $userLoggedIn);
+            
+            //If userfound is not user logged in, get mutual friends    
+            if($usersReturnedArray['username'] != $userLoggedIn){
+                $mutual_friends = $user->getMutualFriends($usersReturnedArray['username']). " friends in common";
+            } else {
+                $mutual_friends = "";
+            }
+            
+            echo "<div class='resultDisplay'>
+            
+            </div>";
+        }
+    }
 ?>
