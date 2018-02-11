@@ -23,7 +23,38 @@
 				<a href="index.php">PHPSocial</a>
 			</div>
 			<div class="search">
-			    
+			    <form action="search.php" method="GET" name="search_form">
+			        <input type="text" onkeyup="getLiveSearchUsers(this.value, '<?php echo $userLoggedIn; ?>')" 
+			        name="q" placeholder='Search...' autocomplete='off' id='search-text-input'>
+			        <div class="button_holder">
+			            <img src='assets/images/icons/magnifying_glass.png'/>
+			        </div>
+			    </form>
+			    <div class="search_results">
+				</div>
+				<div class="search_results_footer_empty">
+				</div>
+				<nav>
+				    <?php
+				        // Get the number of unread notifications
+				        $notification = new Notification($con, $userLoggedIn);
+				        
+				        // Returns the number of unread notifications
+				        $num_notifications = $notification->getUnreadNumber();
+				        
+				        // Gets the number of unread messages
+					    $messages = new Message($con, $userLoggedIn);
+					    
+					    // Returns the number of unread messages
+					    $num_messages = $messages->getUnreadNumber();
+					    
+					    // Gets the number of unread friend requests
+					    $user_obj = new User($con, $userLoggedIn);
+					    
+					    // Returns the number of unread friend requests
+					    $num_friend_requests = $user_obj->getNumberOfFriendRequests();
+				    ?>
+				</nav>
 			</div>
         </div>
     </body>
