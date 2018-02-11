@@ -157,6 +157,36 @@
                 // Start where the last loaded posts left off
                 $start = ($page - 1) * $limit;
             }
+            
+            //Set viewed to yes for all messages for that user.
+            $set_viewed = $this->con->query("UPDATE messages SET viewed='yes' WHERE user_to='$userLoggedIn'");
+            
+            $get_convos_query = mysqli_query($this->con, "SELECT user_to, user_from FROM messages WHERE user_to='$userLoggedIn' 
+                OR user_from='$userLoggedIn' ORDER BY id DESC");
+            
+            while($row = mysqli_fetch_assoc($get_convos_query)){
+                // Check if user_logged_in sent or received last message
+                $user_to_push = ($row['user_to'] != $userLoggedIn) ? $row['user_to'] : $row['user_from'];
+                
+                // If the username is not alread in an array put it in
+                if(!in_array($user_to_push, $convos))
+				    array_push($convos, $user_to_push);
+            }
+            
+            // The number of messages checked (not posted necessarily)
+            $num_iterations = 0;
+            
+            // The number of messages posted
+            $count = 1;
+            
+            // The array of usernames that user_logged_in has conversed with
+            foreach ($convos as $username){
+                if($num_iterations++ < $start)
+        		    continue;
+        		
+        		// Once 5 notifications have been loaded then stop
+        		
+            }
         }
     }
 ?>
