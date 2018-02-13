@@ -453,7 +453,7 @@ textarea:focus {
 }
 
 /* Search results (not live search in header) */
-.results{
+.results {
 	background-color: #FFFFFF;
 	border: 1px solid #DADADA;
    	border-bottom: none;
@@ -461,7 +461,7 @@ textarea:focus {
    	position: absolute;
 }
 
-.search_results_footer{
+.search_results_footer {
 	padding: 5px 4px 0px 4px;
 	height: 22px;
 	border: 1px solid #DADADA;
@@ -470,5 +470,49 @@ textarea:focus {
 	text-align: center;
 }
 
+.search_results_footer a {
+	color: #fff;
+}
 
- 
+.resultDisplay {
+	padding: 5px 4px 0px 4px;
+	height: 60px;
+	border-bottom: 1px solid #DADADA;
+}
+
+.resultDisplay a {
+	float: none;	
+}
+
+.resultDisplay:hover {
+	background-color: #EBEBEB;
+	text-decoration: none;
+}
+
+.liveSearchText {
+	background-color: transparent;
+	color: #1485BD;
+}
+
+.liveSearchText p {
+	margin: 0 0 0 10px;
+	font-size: 12px;
+}
+
+.resultDisplayPageText {
+	background-color : transparent;
+	color: #1485BD;
+}
+
+.liveSearchProfilePic img {
+	height: 53px;
+	border-radius: 25px;
+	margin: 1px 12px 0px 2px;
+	float: left;
+}
+
+#small_profile_pic {
+	height: 53px;
+	margin: 1px 12px 0px 2px;
+	float: left;
+} 
