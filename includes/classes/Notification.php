@@ -72,6 +72,33 @@
                 $end_date = new DateTime($date_time_now);
                 $interval = $start_date->diff($end_date);
                 
+                if($interval->y >= 1){
+                    if($interval->y == 1){
+                        $time_message = $interval->y." year ago";
+                    } else {
+                        $time_message = $interval->y." years ago";
+                    }
+                } elseif($interval->m >= 1){
+                    if($interval->d == 0){
+                        $days = " ago";
+                    } else if($interval->d == 1){
+                        $days = $interval->d." day ago";
+                    } else {
+                        $days = $interval->d." day ago";
+                    }
+                    
+                    if($interval->m == 1){
+                        $time_message = $interval->m." month ".$days;
+                    } else {
+                        $time_message = $interval->m." months ".$days;
+                    }
+                } else if($interval->d >= 1){
+                    if($interval->d == 1){
+                        $time_message = "Yesterday";
+                    } else{
+                        $time_message = $interval->d." days ago";    
+                    }
+                }
             }
         }
     }
