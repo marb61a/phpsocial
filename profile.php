@@ -82,9 +82,30 @@
 			
 			// If a user is not on their own profile
 			if($user['username'] != $profile_username['username']){
-			    if ($logged_in_user->isFriend($profile_username['username'])) 
-    				//If users are friends, show remove friend button. 
+			    if ($logged_in_user->isFriend($profile_username['username'])){ 
+    				// If users are friends, show remove friend button. 
     				echo '<input type="submit" name="removeFriend" class="danger" value="Remove Friend"><br>';
+    			} else if ($logged_in_user->didReceiveRequest(($profile_username['username']))){
+    			    // If a request has been received from the profile user
+				    echo '<input type="submit" name="respondToRequest" class="warning" value="Respond to Request"><br>';
+    			} else if($logged_in_user->didSendRequest(($profile_username['username']))){
+    			    // If a request has already  been sent to the profile user and is awaiting reponse
+    			    echo '<input type="submit" name="" class="default" value="Request Sent"><br>';
+    			} else {
+    			    // If the users are not friends show the add friend button
+    			    echo '<input type="submit" name="addFriend" class="success" value="Add Friend"><br>';
+    			}
+			}
+			
+			// Posting button
+			echo '<input type="submit" class="deep_blue" data-toggle="modal" data-target="#post_form" value="Post Something">';
+			
+			// If a user is not on their own profile
+			if($user['username'] != $profile_username['username']){
+			    echo '<div class="profile_left_window">';
+			        // Mutual Friends
+			        echo $logged_in_user->getMutualFriends($profile_username['username'])." friends in common";
+			    echo '</div>';
 			}
         ?>
     </form>
@@ -93,9 +114,20 @@
 <div class="profile_main_column column">
     <!--- Nav tabs --->
     <ul class="nav nav-tabs" role="tablist" id="profileTabs">
-        
+        <li role="presentation" class="active">
+            <a href="#swirlfeed_div" aria-controls="swirlfeed_div" role="tab" data-toggle="tab">Swirlfeed</a>
+        </li>
+        <li role="presentation">
+            <a href="#about_div" aria-controls="about_div" role="tab" data-toggle="tab">About</a>
+        </li>
+        <li role="presentation">
+            <a href="#messages_div" aria-controls="messages_div" role="tab" data-toggle="tab">Message</a>
+        </li>
     </ul>
     <div class="tab-content">
-        
+        <!--- The swirlfeed div --->
+        <div role="tabpanel">
+            
+        </div>
     </div>
 </div>
