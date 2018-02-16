@@ -20,15 +20,30 @@
                 $user_from_friend_array = $user_from_details->getFriendArray();
                 
                 if(isset($_POST['acceptRequest'.$user_from])){
-                    
+                    $addFriendQuery = mysqli_query($con, "UPDATE users SET friend_array=CONCAT(friend_array,'$user_from,') 
+                        WHERE username='$userLoggedIn'");
+    				$addFriendQuery = mysqli_query($con, "UPDATE users SET friend_array=CONCAT(friend_array,'$userLoggedIn,') 
+    				    WHERE username='$user_from'");
+    
+    				$deleteRequest = mysqli_query($con, "DELETE FROM friend_requests WHERE user_to='$userLoggedIn' AND user_from='$user_from'");
+    				echo "You are now friends!";
+    				header("Location: requests.php");
                 }
                 
                 if(isset($_POST['ignoreRequest'.$user_from])){
-                    
+                    $deleteRequest = mysqli_query($con, "DELETE FROM friend_requests WHERE user_to='$userLoggedIn' AND user_from='$user_from'");
+				    echo "Request Ignored";
+				    header("Location: requests.php");
                 }
+    ?>            
+                <form action="requests.php" method="POST">
+					<input type="submit" name="acceptRequest<? echo $user_from; ?>" id="accept_button" value="Accept">
+					<input type="submit" name="ignoreRequest<? echo $user_from; ?>" id="decline_button" value="Ignore">
+				</form>
+				<br>
+				<br>
+                < ?php
             }
         }
     ?>
 </div>
-
-<?php //include("includes/footer.php");?>
