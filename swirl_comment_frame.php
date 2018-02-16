@@ -37,5 +37,32 @@
 			    background-color: #ECF0F1;
             }
         </style>
+        
+        <script language="javascript">
+            function toggle(){
+                var ele = document.getElementById("comment_section");
+                if(ele.style.display == "block"){
+                    ele.style.display = "none";
+                } else {
+                    ele.style.display = "block";
+                }
+            }
+        </script>
+        
+        <?php
+            // Get the id of the swirl
+            if(isset($_GET['post_id'])) {
+                $post_id = $_GET['post_id'];
+            }
+            
+            $user_query = mysqli_query($con, "SELECT added_by, user_to FROM swirls WHERE id='$post_id'");
+    		$get_user = mysqli_fetch_assoc($user_query);
+    		$posted_to = $get_user['added_by'];
+    		$user_to = $get_user['user_to'];
+    		
+    		if(isset($_POST['postComment' . $post_id])){
+    		    
+    		}
+        ?>
     </body>
 </html>
