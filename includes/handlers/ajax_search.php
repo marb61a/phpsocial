@@ -30,7 +30,16 @@
             }
             
             echo "<div class='resultDisplay'>
-            
+                <a href='".$usersReturnedArray['username']."' style='color: #1485BD;'>
+                    <div class='liveSearchProfilePic'>
+                        <img src='".$usersReturnedArray['profile_pic']."'>
+                    </div>
+                    <div class='liveSearchText'>
+                        ".$usersReturnedArray['first_name']." ".$usersReturnedArray['last_name']."
+                        <p>".$usersReturnedArray['username']."</p>
+                        <p id='grey'>".$mutual_friends." </p>
+                    </div>
+                </a>
             </div>";
         }
     }

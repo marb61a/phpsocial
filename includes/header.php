@@ -54,8 +54,38 @@
 					    // Returns the number of unread friend requests
 					    $num_friend_requests = $user_obj->getNumberOfFriendRequests();
 				    ?>
+				    
+				    <a href="<?php echo $user['username']; ?>">
+				    	<?php echo $user['first_name']; ?>
+				    </a>
+				    
+				    <a href="javascript:void(0);" onclick="getDropdownData('<?php echo $userLoggedIn; ?>', 'message')">
+				    	<i class="icon fa  fa-envelope-o fa-lg"></i>
+				    	<?php
+				    		if($num_messages > 0){
+				    			echo '<span class="notification_badge" id="unread_message">'.$num_messages.'</span>';
+				    		}
+				    	?>
+				    </a>
 				</nav>
+				
+				<!-- This div holds dropdown data notifications or messages -->
+				<div class="dropdown_data_window"></div>
+				
+				<!-- This value is used for the type of data to load e.g. messages, notifications -->
+				<input type="hidden" id="dropdown_data_type" value="">
 			</div>
+			
+			<!-- script for loading dropdown_data AND infinite scrolling -->
+			<script>
+				var userLoggedIn = '<?php echo $userLoggedIn; ?>';
+				
+				$(document).ready(function(){
+					$(window).scroll(function(){
+						
+					});
+				});
+			</script>
         </div>
     </body>
 </html>
