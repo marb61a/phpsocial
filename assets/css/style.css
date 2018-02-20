@@ -516,3 +516,49 @@ textarea:focus {
 	margin: 1px 12px 0px 2px;
 	float: left;
 } 
+
+.resultDisplayNoticiation {
+	height: auto;
+	padding-bottom: 4px;
+}
+
+.notificationsProfilePic img {
+	height: 40px;
+	border-radius: 5px;
+	margin: 1px 12px 0px 2px;
+	float: left;
+}
+
+#message_textarea {
+	width: 80%;
+	margin-right: 8px;
+}
+
+#message_submit {
+	height: 50px;
+	width: 120px;
+	margin: 0;
+	position: absolute;
+}
+
+.message {
+	border: 1px solid #000;
+	border-radius: 5px;
+	padding: 5px 10px;
+	display: inline-block;
+	color: #fff;
+}
+
+.message#blue {
+	background-color: #3497db;
+	border-color: #2980b9;
+	float: right;
+	margin-bottom: 5px;
+}
+
+.message#green {
+	background-color: #2ecc71;
+	border-color: #27ae60;
+	float: left;
+	margin-bottom: 5px;
+}
