@@ -125,9 +125,36 @@
         </li>
     </ul>
     <div class="tab-content">
-        <!--- The swirlfeed div --->
-        <div role="tabpanel">
+        <!--- The Swirlfeed div --->
+        <div role="tabpanel" class="tab-pane fade in active" id="swirlfeed_div">
+            <div class="swirls_area"></div>
+            <img id='loading' src='assets/images/icons/loading.gif'>
+        </div>
+        
+        <!--- The About div --->
+        <div role="tabpanel" class="tab-pane fade" id="about_div">
+            Blah
+        </div>
+        
+        <!--- The Messages div --->
+        <div role="tabpanel" class="tab-pane fade" id="messages_div">
+            <?php
+                $profile_user_obj = new User($con, $profile_username['username']);
+                echo "<h4>You and <a href='".$profile_username['username']."'>" . $profile_user_obj->getFirstAndLastName() . "</a></h4><hr><br>";
+            ?>
             
+            <div class="loaded_messages" id="x" style="height: 56%;">
+                <?php
+                    echo $message_obj->getMessages($profile_username['username']);
+                ?>
+            </div>
+            
+            <div class="message_post">
+                <form action="" method="POST">
+                    <textarea name="message_body" id="message_textarea" placeholder="Write your message..."></textarea>
+					<input type="submit" name="post_message" class="info" id="message_submit" value="Send">
+                </form>
+            </div>
         </div>
     </div>
 </div>
