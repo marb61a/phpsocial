@@ -61,7 +61,39 @@
     		$user_to = $get_user['user_to'];
     		
     		if(isset($_POST['postComment' . $post_id])){
-    		    
+    		    $post_body = $_POST['post_body'];
+			    $post_body = mysqli_escape_string($con, $post_body);
+			    $date_time_now = date("Y-m-d H:i:s");
+			    $insert_post = mysqli_query($con, "INSERT INTO swirl_comments VALUES ('', '$post_body', '$userLoggedIn', 
+			        '$posted_to', '$date_time_now', 'no', '$post_id')");
+			    
+			    // Insert a notification to the user that posted
+			    if($posted_to != $userLoggedIn){
+			        $notification = new Notification($con, $userLoggedIn);
+			        $notification->insertNotification($post_id, $posted_to, "swirl_comment");
+			    }
+			    
+			    // If the post was to a user let the user know
+			    if($user_to != 'none' && $user_to != $userLoggedIn){
+			        $notification = new Notification($con, $userLoggedIn);
+			        $notification->insertNotification($post_id, $user_to, "swirl_profile_post_comment");
+			    }
+			    
+			    // Select all the users that commented and send them notifications 
+			    $get_commenters = $con->query("SELECT posted_by FROM swirl_comments WHERE post_id='$post_id'");
+			    
+			    // An array to hold the users that have been notified of a comment
+			    $notified_users_array = array();
+			    
+			    while($row = $get_commenters->fetch_array(MYSQLI_ASSOC)){
+			        // Send other users who commented a notification
+			        if($row['posted_by'] != $posted_to && $row['posted_by'] != $userLoggedIn && !in_array($row['posted_by'], 
+			            $notified_users_array) && $row['posted_by'] != $user_to){
+			            $notification = new Notification($con, $userLoggedIn);
+					    $notification->insertNotification($post_id, $row['posted_by'], "swirl_comment_non_owner");
+					    
+			        }
+			    }
     		}
         ?>
     </body>
