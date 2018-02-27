@@ -181,11 +181,38 @@
             
             // The array of usernames that user_logged_in has conversed with
             foreach ($convos as $username){
-                if($num_iterations++ < $start)
+                if($num_iterations++ < $start){
         		    continue;
+                }
         		
         		// Once 5 notifications have been loaded then stop
-        		
+        	    if($count > $limit){
+        	        break;
+        	    } else {
+        	        $count++;
+        	    }
+        	    
+        	    $is_unread_query = mysqli_query($this->con, "SELECT opened FROM messages WHERE user_to='$userLoggedIn' 
+        	        AND user_from='$username' ORDER BY id DESC");
+        	    $row = $is_unread_query->fetch_array(MYSQL_ASSOC);
+        	    
+        	    // If unopened, change background colour slightly
+        	    $style = ($row['opened'] == 'no') ? "background-color: #DDEDFF;" : "";
+        	    
+        	    $user_found_obj = new User($this->con, $username);
+        	    $latest_message_details = $this->getLatestMessage($userLoggedIn, $username);
+        	    
+        	    // If message body is greater than 11, add '...'
+        	    $dots = strlen($latest_message_details[1]) >= 12 ? "....":"";
+        	    
+        	    // Split the message at 13 characters 
+        	    $split = str_split($latest_message_details[1], 12);
+        	    $split = $split[0].$dots;
+        	    
+        	    $return_string .= "<a href='messages.php?u=$username'>
+        	    
+        	    </a>";
+        	    
             }
         }
     }
