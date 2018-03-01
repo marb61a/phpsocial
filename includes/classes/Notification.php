@@ -98,8 +98,42 @@
                     } else{
                         $time_message = $interval->d." days ago";    
                     }
-                }
-            }
+                } else if($interval->h >= 1){
+                    if($interval->h == 1){
+                        $time_message = $interval->h." hour ago";
+                    } else{
+                        $time_message = $interval->h." hours ago";
+                    }
+                } else if($interval->i >= 1){
+                    if($interval->i == 1){
+                        $time_message = $interval->i." minute ago";
+                    } else {
+                        $time_message = $interval->i." minutes ago";
+                    }
+                } else {
+                    if($interval->s < 30){
+                        $time_message = "Just now";
+                    } else {
+                        $time_message = $interval->s." seconds ago";
+                    }
+                } 
+                
+                // If this is yes, then this notification has been clicked on before.
+                $opened = $row['opened'];
+                
+                // If the message is unopened, change background color slightly
+                $style = ($opened == 'no') ? "background-color: #DDEDFF;" : "";
+                
+                $str .= "<a href='".$row['link']."'>
+                    <div class='resultDisplay resultDisplayNotification' style='".$style."'>
+                        <div class='notificationsProfilePic'>
+                            <img src='".$userData['profile_pic']."'>
+                        </div>
+                        <p class='timestamp_smaller' id='grey'>".$time_message."</p>".$row['message']."    
+                    </div>
+                </a>";
+                
+            } // End of the while loop
         }
     }
 ?>
