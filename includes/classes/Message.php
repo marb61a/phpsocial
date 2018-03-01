@@ -210,10 +210,40 @@
         	    $split = $split[0].$dots;
         	    
         	    $return_string .= "<a href='messages.php?u=$username'>
-        	    
+        	        <div class='user_found_messages' style='".$style."'>
+					    <img src='".$user_found_obj->getProfilePic()."' style='border-radius: 5px; margin-right: 5px;'>
+					        ".$user_found_obj->getFirstAndLastName()." 
+					    <span class='timestamp_smaller' id='grey' >".$latest_message_details[2]."</span>
+					    <p id='grey' style='margin: 0;'>".$latest_message_details[0].$split." </p>
+					</div>
         	    </a>";
         	    
             }
+            
+            // If posts were loaded
+            if($count > $limit){
+                // This holds the value of the next page but stays hidden
+                $return_string .= "<input type='hidden' class='nextpageDropdownData' value='".($page + 1)."'>
+                    <input type='hidden' class='noMoreDropdownData' value='false'> ";
+            } else {
+                // If there are no more notifications to load, then show the finished method
+                $return_string .= "<input type='hidden' class='noMoreDropdownData' value='true'>
+                    <p style='text-align: center;'>No more messages to load!</p>";
+                
+            }
+            
+            return $return_string;
+        }
+        
+        // This returns the latest messages between any 2 given users
+        public function getLatestMessage($userLoggedIn, $user2){
+            $details_array = array();
+            
+            // This gets the latest message
+            $query = $this->con->query("SELECT body, user_to, date FROM messages WHERE (user_to='$userLoggedIn' AND user_from='$user2') OR 
+									(user_to='$user2' AND user_from='$userLoggedIn') ORDER BY id DESC LIMIT 1");
+			$row = $query->fetch_array(MYSQL_ASSOC);
+			
         }
     }
 ?>
