@@ -67,6 +67,10 @@
 				    		}
 				    	?>
 				    </a>
+				    
+				    <a href="index.php">
+				    	<i class="icon fa  fa-home fa-lg"></i>
+				    </a>
 				</nav>
 				
 				<!-- This div holds dropdown data notifications or messages -->
@@ -82,7 +86,28 @@
 				
 				$(document).ready(function(){
 					$(window).scroll(function(){
+						// Get the height of the div containing dropdown data
+						var inner_height = $('.dropdown_data_window').innerHeight();
 						
+						var scroll_top = $('.dropdown_data_window').scrollTop();
+						var page = $('.dropdown_data_window').find('.nextpageDropdownData').val();
+				    	var noMoreData = $('.dropdown_data_window').find('.noMoreDropdownData').val();
+				    	
+				    	if((scroll_top + inner_height >= $('.dropdown_data_window')[0].scrollHeight) && noMoreData == 'false'){
+				    		// Hold the name of the page to send ajax
+				    		var pageName;
+				    		
+				    		// The value in the hidden input field in dropdown_data_window div. Hold the type of data to load.
+				    		var type = $('#dropdown_data_type').val();
+				    		
+				    		if(type == 'notification'){
+				    			pageName = "ajax_load_notifications.php";
+				    		} else if(type == 'message'){
+				    			pageName = "ajax_load_messages.php";
+				    		} else if(type == 'friend_request')
+				    			pageName = "ajax_load_friend_requests.php"; 
+				    			
+				    	}
 					});
 				});
 			</script>
