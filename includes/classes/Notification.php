@@ -134,6 +134,35 @@
                 </a>";
                 
             } // End of the while loop
+            
+            // If posts were loaded
+            if($count > $limit){
+                // Holds value of next page, it must stay hidden
+                $str.="<input type='hidden' class='nextpageDropdownData' value='".($page + 1).
+                "'><input type='hidden' class='noMoreDropdownData' value='false'>";
+            } else {
+                // No more Notifications to load. Show 'Finished' message
+	        	$str .= "<input type='hidden' class='noMoreDropdownData' value='true'>
+	        	<p style='text-align: center;'>No more notifications to load!</p>";
+            }
+            
+            echo $str;
+        }
+        
+        // Insert Notification
+        public function insertNotification($post_id, $user_to, $type){
+            // Username of user logged in
+            $userLoggedIn = $this->user_obj->getUsername(); 
+            
+            // First and last name of user logged in
+		    $userLoggedInName = $this->user_obj->getFirstAndLastName(); 
+
+		    // Current date and time
+		    $date_time = date("Y-m-d H:i:s"); 
+		    
+		    switch ($type){
+		        
+		    }
         }
     }
 ?>
