@@ -1,6 +1,26 @@
 <?php
-
+	include("./config/config.php");
+	include("./includes/classes/User.php");
+	include("./includes/classes/Message.php");
+	include("./includes/classes/Swirl.php");
+	include("./includes/classes/Notification.php");
+	
+	if(isset($_SESSION['username'])){
+		$userLoggedIn = $_SESSION['username'];
+		$user_details_query = mysqli_query($con, "SELECT * FROM users WHERE username='$userLoggedIn'");
+		$user = mysqli_fetch_array($user_details_query);
+	} else {
+		header("Location: register.php");
+	}
+	
+	// Check what type of device a user is using
+	$iphone = strpos($_SERVER['HTTP_USER_AGENT'],"iPhone");
+	$android = strpos($_SERVER['HTTP_USER_AGENT'],"Android");
+	$palmpre = strpos($_SERVER['HTTP_USER_AGENT'],"webOS");
+	$berry = strpos($_SERVER['HTTP_USER_AGENT'],"BlackBerry");
+	$ipod = strpos($_SERVER['HTTP_USER_AGENT'],"iPod");
 ?>
+
 <html>
     <head>
         <title>Welcome to PHPSocial</title>
@@ -107,7 +127,19 @@
 				    		} else if(type == 'friend_request')
 				    			pageName = "ajax_load_friend_requests.php"; 
 				    			
+				    			var ajaxreq = $.ajax({
+				    				url:"includes/handlers/" + pageName,
+					        		type:"POST",
+					    			data:"page=" + page + "&userLoggedIn=" + userLoggedIn,
+					    			cache: false,
+					    			success: function(){
+					    				// Remove current .nextPage (hidden input)
+					    				$('.dropdown_data_window').find('.nextpageDropdownData').remove();
+					    			}
+				    			});
 				    	}
+				    	
+				    	return false;
 					});
 				});
 			</script>
