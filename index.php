@@ -17,6 +17,34 @@
     }
     
     // Weather Info
+    $json_string = file_get_contents("http://api.wunderground.com/api/2b88d665c1a18d58/geolookup/conditions/q/autoip.json");
+  	$parsed_json = json_decode($json_string);
+    
+    // Get info from Json data
+    $location = $parsed_json->location->city;
+    
+    // Temperature in Farenheit
+    $temp_f = $parsed_json->current_observation->temp_f;
+    
+    // Temperature in Celcius
+    $temp_c = $parsed_json->current_observation->temp_c;
+    
+    // Temperature it feels like in Fahrenheit 
+    $feels_temp_f = $parsed_json->current_observation->feelslike_f;
+    
+    // Temoerature it feels like in Celcius
+    $feels_temp_c = $parsed_json->current_observation->feelslike_c;
+    
+    $wind_mph = $parsed_json->current_observation->wind_gust_mph;
+  	$weather = $parsed_json->current_observation->weather;
+  	
+  	$feels_like_message = ($feels_temp_c != $temp_c) ? "Although it feels like" . $feels_temp_c."&#8451 (".$feels_temp_f."&#8457)<br>" : "<br>";
+  	
+  	echo '<div style="text-align:center;" class="alert alert-success" role="alert">
+  			'.$location.' is '.$weather.' and '.$temp_c.'&#8451 ('.$temp_f.'&#8457).
+  			'.$feels_like_message.'
+  			Wind speed: '.$wind_mph.'mph
+  		</div>';
 ?>
 
 <!-- column for logged in user details on the left -->
