@@ -248,15 +248,63 @@
                         });      
                     });
                 </script>
+                <?php             
+                        } //Check if user is friends with person who posted
+                        else {
+                        	echo "You cannot see this post as you are not friends with this user.";
+                        	return;
+                        }
+            
+            	    } //if num_rows != 0
+            	    else { 
+            	        //No more posts to load. Show 'Finished' message
+            	        echo "<p>No post was found. If you clicked on a link it may be broken.</p>";
+            	        return;
+            	    }
+            	  
+            	    //Show swirls
+            	    echo $str; 
+            	}//End get single post
+                    
+                // Gets swirls by friends
+                public function loadPostsFriends($data, $limit) {
+                    $page = $data['page'];
+                    $userLoggedIn = $this->user_obj->getUsername();
+                    
+                    if($page == 1){
+                        // Start at the first post
+                        $start = 0;
+                    } else {
+                        // Start where last loaded posts left off
+                        $start = ($page - 1) * $limit;
+                    }
+                    
+                    // Initialise a string that will hold data to return
+                    $str = '';
+                    $data = $this->con->query("SELECT * FROM swirls WHERE deleted='no' ORDER BY id DESC");
+                    
+                    // If the query returns empty there are no more posts to load
+                }
+                
+            	?>
                 
                 <?php
-                // Check if user is friends with person who posted*/
-                } 
                 
                 //  End while loop
 	            }
-                ?>
+                
+                // If posts were loaded
+	            if($count > $limit){
+	        	    // Holds value of next page. Must stay hidden
+	        	    $str.="<input type='hidden' class='nextpage' value='".($page + 1)."'><input type='hidden' class='noMorePosts' value='false'>";
+	            } else  
+	        	    // No more posts to load. Show 'Finished' message
+	        	    $str .= "<input type='hidden' class='noMorePosts' value='true'><p style='text-align: center;'>No more posts to show!</p>";
+	            
             }
+            
+            //Show swirls
+	        echo $str;
         }
     }
 ?>
