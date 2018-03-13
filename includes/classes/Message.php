@@ -243,7 +243,40 @@
             $query = $this->con->query("SELECT body, user_to, date FROM messages WHERE (user_to='$userLoggedIn' AND user_from='$user2') OR 
 									(user_to='$user2' AND user_from='$userLoggedIn') ORDER BY id DESC LIMIT 1");
 			$row = $query->fetch_array(MYSQL_ASSOC);
+			$sent_by = ($row['user_to'] == $userLoggedIn) ? "They said: " : "You said: ";
 			
+			$date_time_now = date("Y-m-d H:i:s");
+            $start_date = new DateTime($row['date']);
+            $end_date = new DateTime($date_time_now);
+            $interval = $start_date->diff($end_date);
+            
+            if($interval->y >= 1){
+                if($interval->y == 1){
+                    $time_message = $interval->y." year ago";
+                } else {
+                    $time_message = $interval->y." years ago";
+                }
+            } else if($interval->m >= 1){
+                
+            } else if ($interval->d >= 1){
+                
+            } else if($interval->h >= 1){
+                
+            } else if($interval->i >= 1){
+                
+            } else {
+                if($interval->s < 30 ){
+                    $time_message = "Just Now";    
+                } else {
+                    $time_message = $interval->s." seconds ago";
+                }
+            }
+            
+            array_push($details_array, $sent_by);
+    		array_push($details_array, $row['body']);
+    		array_push($details_array, $time_message);
+    
+    		return $details_array;
         }
     }
 ?>
