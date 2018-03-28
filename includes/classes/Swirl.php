@@ -284,6 +284,38 @@
                     $data = $this->con->query("SELECT * FROM swirls WHERE deleted='no' ORDER BY id DESC");
                     
                     // If the query returns empty there are no more posts to load
+                    if($data->num_rows > 0){
+                        // The number of results checked (not necessarily posted)
+                        $num_iterations = 0;
+                        $count = 1;
+                        
+                        while($row = $data->fetch_array(MYSQLI_ASSOC)){
+                            $id = $row['id'];
+                            $body = $row['body'];
+                            $added_by = $row['added_by'];
+                            $date_time = $row['date_added'];
+                            $mobile_device = $row['mobile_device'];
+                            $hidden_mode = $row['hidden_mode'];
+                            
+                            // Prepare the user_to string so that it can be echoed, even if the post is not to a user
+                            if($row['user_to'] == 'none'){
+                                if($row['user_to'] == 'none');        
+                            } else {
+                                $user_to_obj = new User($this->con, $row['user_to']);
+                                
+                                // Get the first and last name
+                                $user_to_name = $user_to_obj->getFirstAndLastName();
+                                
+                                $user_to_string = " to <a href='".$row['user_to']."'>".$user_to_name."</a>";
+                            }
+                            
+                            // Check if the user who posted has their account closed, if so do not show the post
+                            $added_by_user = new User($this->con, $added_by);
+                            if($added_by_user->isClosed() == "yes"){
+	                            continue;
+                            }
+                        }
+                    }
                 }
                 
             	?>
