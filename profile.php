@@ -155,6 +155,42 @@
 					<input type="submit" name="post_message" class="info" id="message_submit" value="Send">
                 </form>
             </div>
+            
+            <!-- Javascript to scroll messages to bottom -->
+            <script>
+                var objDiv = document.getElementById("x");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            </script>
+            
         </div>
-    </div>
+    </div> <!-- END class: tab-content -->
 </div>
+
+<!-- Infinite scrolling script -->
+<script>
+    var userLoggedIn = '<?php echo $userLoggedIn; ?>';
+    var profileUsername = '<?php echo $profile_username["username"]; ?>';
+    
+    $(document).ready(function(){
+        // Show the loading icon
+        $('#loading').show();
+        
+        // Orignal Ajax request for loading first posts
+        $.ajax({
+            url:"includes/handlers/ajax_load_profile_posts.php",
+		    type:"POST",
+		    data:"page=1&userLoggedIn=" + userLoggedIn + "&profileUsername=" + profileUsername,
+	        cache: false,
+	        success: function(){
+	            $('#loading').hide();
+	            $('.swirls_area').html(data);
+	        }	    
+        });
+        
+        $(window).scroll(function(){
+            
+        });
+    });
+</script>
+
+<?php include("includes/footer.php");?>
