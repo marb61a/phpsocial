@@ -314,6 +314,45 @@
                             if($added_by_user->isClosed() == "yes"){
 	                            continue;
                             }
+                            
+                            // A user object username of user logged in 
+                            $logged_in_user = new User($this->con, $userLoggedIn);
+                            
+                            // Check if the person who posted is friends with user
+                            if($logged_in_user->isFriend($added_by)){
+                                if($num_iterations++ < $start){
+                                    continue;
+                                }
+                                
+                                // Once 10 posts have been loaded
+                                if($count > $limit){
+                                    break; 
+                                } else {
+                                    $count++;
+                                }
+                                
+                                // If the user posted show the delete button
+                                if($userLoggedIn == $added_by){
+                                    $delete_button = "<button class='delete_button btn-danger' id='post$id'>X</button>";
+                                } else {
+                                    $delete_button = "";
+                                }
+                                
+                                $get_user_details = mysqli_query($this->con, "SELECT first_name, last_name, profile_pic FROM users WHERE username='$added_by'");
+                                $userRow = mysqli_fetch_assoc($get_user_details);
+                                
+                                // If hidden mode = no, use profile pic of user, else use random picture
+                                if($hidden_mode == 'no'){
+                                    $firstName = $userRow['first_name'];
+	                                $lastName = $userRow['last_name'];
+	                                $profile_pic = $userRow['profile_pic'];    
+                                } else {
+                                    $firstName = 'Someone said: ';
+            	                    $lastName = '';
+            	                    $added_by = '';
+            	                    
+                                }
+                            }
                         }
                     }
                 }
