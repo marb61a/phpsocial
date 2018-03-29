@@ -6,9 +6,7 @@
     $result_path = "";
     $msg = "";
     
-    /***********************************************************
-        Step 1 - Remove The Temp image, if it exists
-    ***********************************************************/
+    // Step 1 - Remove The Temp image, if it exists
     if(isset($_POST['x']) && !isset($_FILES['image']['name'])){
         // Delete the users temp image
         $temppath = 'assets/images/profile_pics/'.$profile_id.'_temp.jpeg';
@@ -17,9 +15,7 @@
         }
     } 
     
-    /***********************************************************
-    	Step 2 - Upload Original Image To Server
-    ***********************************************************/
+    // Step 2 - Upload Original Image To Server
     if(isset($_FILES['image']['name'])){
         // Get the name, size & temp location
         $ImageName = $_FILES['image']['name'];
@@ -56,5 +52,36 @@
             $src = $file_name;
         }
         
+        // Step 3 - Resize The Image To Fit In Cropping Area
+        // Get the uploaded image size
+        clearstatcache();				
+		$original_size = getimagesize($fullpath);
+		$original_width = $original_size[0];
+		$original_height = $original_size[1];
+		
+		// Specify the new size
+		$main_width = 500;
+		$main_height = $original_height / ($original_width / $main_width);
+		
+		// Create a new image using the correct php function
+		if($_FILES["image"]["type"] == "image/gif"){
+		    $src2 = imagecreatefromgif($fullpath);
+		} else if($_FILES["image"]["type"] == "image/jpeg" || $_FILES["image"]["type"] == "image/pjpeg"){
+		    $src2 = imagecreatefromjpeg($fullpath);
+		} else if($_FILES["image"]["type"] == "image/png"){
+		    $src2 = imagecreatefrompng($fullpath);
+		} else {
+		    $msg .= "There was an error uploading the file. Please upload a .jpg, .gif or .png file. <br />";
+		}
+		
+		// Create the new resized image
+		$main = imagecreatetruecolor($main_width, $main_height);
+		imagecopyresampled($main,$src2,0, 0, 0, 0,$main_width,$main_height,$original_width,$original_height);
+		
+		// Upload the new version
+		$main_temp = $fullpath_2;
+		imagejpeg($main, $main_temp, 90);
+		chmod($main_temp,0777);
+		
     }
 ?>
