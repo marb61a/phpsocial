@@ -349,15 +349,74 @@
                                 } else {
                                     $firstName = 'Someone said: ';
             	                    $lastName = '';
+            	                    // This is needed to avoid someone said linking to a profile
             	                    $added_by = '';
             	                    
-                                }
+            	                    $random_num = rand(1, 16);
+            	                    switch($random_num){
+            	                        case '1':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_alizarin.png";
+            	                            break;
+            	                        case '2':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_amethyst.png";
+            	                            break;
+            	                        case '3':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_belize_hole.png";
+            	                            break;
+            	                        case '4':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_carrot.png";
+            	                            break;
+            	                        case '5':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_deep_blue.png";
+            	                            break;
+            	                        case '6':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_emerald.png";
+            	                            break;
+            	                        case '7':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_green_sea.png";
+            	                            break;
+            	                        case '8':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_nephritis.png";
+            	                            break;
+            	                        case '9':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_pete_river.png";
+            	                            break;
+            	                        case '10':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_pomegranate.png";
+            	                            break;
+            	                        case '11':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_pumpkin.png";
+            	                            break;
+            	                        case '12':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_red.png";
+            	                            break;
+            	                        case '13':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_sun_flower.png";
+            	                            break;
+            	                        case '14':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_turqoise.png";
+            	                            break;
+            	                        case '15':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_wet_asphalt.png";
+            	                            break;
+            	                        case '16':
+            	                            $profile_pic = "assets/images/profile_pics/defaults/head_wisteria.png";
+            	                            break;
+            	                    } // End Switch
+                                } // End hidden mode
+                                ?>
+                                
+                                <script language="javascript">
+                                    function toggle<?php echo $id; ?>(){
+                                        var target = $( event.target );
+                                        
+                                    }
+                                </script>
                             }
                         }
                     }
                 }
                 
-            	?>
                 
                 <?php
                 
