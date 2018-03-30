@@ -83,5 +83,41 @@
 		imagejpeg($main, $main_temp, 90);
 		chmod($main_temp,0777);
 		
+		// Free up memory
+		imagedestroy($src2);
+		imagedestroy($main);
+		
+		// Delete the original 
+		@ unlink($fullpath);
+    }
+    
+    // Step 4 Cropping & Converting The Image To Jpg
+    if(isset($_POST['x'])){
+        // The type of file posted
+        $type = $_POST['type'];
+        
+        // The image source
+        $src = 'assets/images/profile_pics/'.$_POST['src'];	
+		$finalname = $profile_id.md5(time());
+		
+		if($type == 'jpg' || $type == 'jpeg' || $type == 'JPG' || $type == 'JPEG'){
+		    // Target dimensions
+		    $targ_w = $targ_h = 150;
+		    
+		    // The quality of the output
+		    $jpeg_quality = 90;
+		    
+		    // Create a cropped copy of the image
+			$img_r = imagecreatefromjpeg($src);
+			$dst_r = imagecreatetruecolor( $targ_w, $targ_h );
+			imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],
+			$targ_w,$targ_h,$_POST['w'],$_POST['h']);
+			
+		    // Save the new cropped version
+			imagejpeg($dst_r, "assets/images/profile_pics/".$finalname."n.jpeg", 90); 
+			
+		} else if($type == 'png' || $type == 'PNG'){
+		    
+		}
     }
 ?>
