@@ -110,14 +110,41 @@
 		    // Create a cropped copy of the image
 			$img_r = imagecreatefromjpeg($src);
 			$dst_r = imagecreatetruecolor( $targ_w, $targ_h );
-			imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],
-			$targ_w,$targ_h,$_POST['w'],$_POST['h']);
+			imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],$targ_w,$targ_h,$_POST['w'],$_POST['h']);
 			
 		    // Save the new cropped version
 			imagejpeg($dst_r, "assets/images/profile_pics/".$finalname."n.jpeg", 90); 
 			
 		} else if($type == 'png' || $type == 'PNG'){
+		    // Target dimensions
+		    $targ_w = $targ_h = 150;
 		    
+		    // The quality of the output
+		    $jpeg_quality = 90;
+		    
+		    // Create a cropped copy of the image
+		    $img_r = imagecreatefrompng($src);
+			$dst_r = imagecreatetruecolor( $targ_w, $targ_h );		
+			imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],$targ_w,$targ_h,$_POST['w'],$_POST['h']);
+			
+			// Save the new cropped version
+			imagejpeg($dst_r, "assets/images/profile_pics/".$finalname."n.jpeg", 90); 
+			
+		} else if($type == 'gif' || $type == 'GIF'){
+		    //the target dimensions 150x150
+			$targ_w = $targ_h = 150;
+			
+		    // The quality of the output
+			$jpeg_quality = 90;
+			
+    		// Create a cropped copy of the image
+			$img_r = imagecreatefromgif($src);
+			$dst_r = imagecreatetruecolor( $targ_w, $targ_h );		
+			imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],$targ_w,$targ_h,$_POST['w'],$_POST['h']);
+			
+		    // Save the new cropped version
+			imagejpeg($dst_r, "assets/images/profile_pics/".$finalname."n.jpeg", 90); 
+			
 		}
     }
 ?>
