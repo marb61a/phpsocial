@@ -146,5 +146,50 @@
 			imagejpeg($dst_r, "assets/images/profile_pics/".$finalname."n.jpeg", 90); 
 			
 		}
+		
+		// Free up memory
+		imagedestroy($img_r);
+		imagedestroy($dst_r);
+		
+		// Delete the original image 
+		@unlink($src);
+		
+		//return cropped image to page	
+		$result_path ="assets/images/profile_pics/".$finalname."n.jpeg";
+
+		//Insert image into database
+		$insert_pic_query = mysqli_query($con, "UPDATE users SET profile_pic='$result_path' WHERE username='$userLoggedIn'");
+		header("Location: ".$userLoggedIn);
+		
     }
 ?>
+
+<div id="Overlay" style=" width:100%; height:100%; border:0px #990000 solid; position:absolute; top:0px; left:0px; z-index:2000; display:none;"></div>
+<div class="main_column column">
+	<div id="formExample">
+		<p><b> <?=$msg?> </b></p>
+		<form action="upload.php" method="post"  enctype="multipart/form-data">
+			Upload something<br /><br />
+	        <input type="file" id="image" name="image" style="width:200px; height:30px; " /><br /><br />
+	        <input type="submit" value="Submit" style="width:85px; height:25px;" />
+		</form>
+	</div>
+
+	<?php
+		 //if an image has been uploaded display cropping area
+		if($imgSrc){
+	?>
+	
+	<script>
+		$('#Overlay').show();
+		$('#formExample').hide();
+	</script>
+	
+	<div id="CroppingContainer" style="width:800px; max-height:600px; background-color:#FFF; margin-left: 
+		-200px; position:relative; overflow:hidden; border:2px #666 solid; z-index:2001; padding-bottom:0px;" >
+		<div>
+			
+		</div>
+	</div>
+	<?php  } ?>
+</div>
