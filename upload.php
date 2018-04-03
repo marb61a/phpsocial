@@ -187,9 +187,42 @@
 	
 	<div id="CroppingContainer" style="width:800px; max-height:600px; background-color:#FFF; margin-left: 
 		-200px; position:relative; overflow:hidden; border:2px #666 solid; z-index:2001; padding-bottom:0px;" >
-		<div>
-			
+		<div id="CroppingArea" style="width:500px; max-height:400px; position:relative; 
+				overflow:hidden; margin:40px 0px 40px 40px; border:2px #666 solid; float:left;">
+			<img src="<?=$imgSrc?>" border="0" id="jcrop_target" style="border:0px #990000 solid; 
+					position:relative; margin:0px 0px 0px 0px; padding:0px; " />	
 		</div>
+		<div id="InfoArea" style="width:180px; height:150px; position:relative; overflow:hidden; 
+				margin:40px 0px 0px 40px; border:0px #666 solid; float:left;">
+			<p style="margin:0px; padding:0px; color:#444; font-size:18px;">
+				<b>Crop Profile Image</b><br /><br />
+                <span style="font-size:14px;">
+                    Crop / resize your uploaded profile image. <br />
+                    Once you are happy with your profile image then please click save.
+                </span>
+			</p>
+		</div>
+		<br />
+		<div id="CropImageForm" style="width:100px; height:30px; float:left; margin:10px 0px 0px 40px;" >  
+			<form action="upload.php" method="post" onsubmit="return checkCoords();">
+				<input type="hidden" id="x" name="x" />
+				<input type="hidden" id="y" name="y" />
+				<input type="hidden" id="w" name="w" />
+				<input type="hidden" id="h" name="h" />
+				<input type="hidden" value="jpeg" name="type" /> <?php // $type ?> 
+				<input type="hidden" value="<?=$src?>" name="src" />
+				<input type="submit" value="Save" style="width:100px; height:30px;"   />
+			</form>
+		</div>
+		<div id="CropImageForm2" style="width:100px; height:30px; float:left; margin:10px 0px 0px 40px;" >  
+			<form action="upload.php" method="post" onsubmit="return cancelCrop();">
+				<input type="submit" value="Cancel Crop" style="width:100px; height:30px;"   />
+			</form>
+		</div>     
 	</div>
 	<?php  } ?>
 </div>
+
+<?php if($result_path) { ?>
+	<img src="<?=$result_path?>" style="position:relative; margin:10px auto; width:150px; height:150px;" />
+<?php } ?>
