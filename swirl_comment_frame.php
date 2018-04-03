@@ -92,9 +92,48 @@
 			            $notification = new Notification($con, $userLoggedIn);
 					    $notification->insertNotification($post_id, $row['posted_by'], "swirl_comment_non_owner");
 					    
+					    // Add user to array to keep track of who has been notified
+					    array_push($notified_users_array, $row['posted_by']);
 			        }
 			    }
+			    
+			    echo "<p>Comment Posted!<p/>";
     		}
+        ?>
+        
+        <form action="swirl_comment_frame.php?post_id=<?php echo $post_id; ?>" 
+                id='comment_form' method="POST" name="postComment<?php echo $post_id; ?>">
+            <textarea  name='post_body'></textarea>
+			<input type="submit" name="postComment<?php echo $post_id; ?>" value="Post">    
+        </form>
+        
+        <?php
+            $get_comments = mysqli_query($con, "SELECT * FROM swirl_comments WHERE post_id='$post_id' ORDER BY id ASC");
+            $count = mysqli_num_rows($get_comments);
+            
+            if($count != 0){
+                while($comment = mysqli_fetch_assoc($get_comments)){
+                    $comment_body = $comment['post_body'];
+    				$posted_to = $comment['posted_to'];
+    				$posted_by = $comment['posted_by'];
+    				$date_added = $comment['date_added'];
+    				$removed = $comment['removed'];
+    
+    				$date_time_now = date("Y-m-d H:i:s");
+    				$time_message = "";
+                    $start_date = new DateTime($date_added);
+                    $end_date = new DateTime($date_time_now);
+                    $interval = $start_date->diff($end_date);
+                    
+                    if($interval->y >= 1){
+                        if($interval->y == 1){
+	                        $time_message = $interval->y." year ago";
+	                    } else {
+	                        $time_message = $interval->y." years ago";
+	                    }
+                    }
+                }
+            }
         ?>
     </body>
 </html>
