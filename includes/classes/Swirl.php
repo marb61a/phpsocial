@@ -463,8 +463,7 @@
                                         } else {
                                             $time_message = $interval->h." hours ago";
                                         }
-	                                } 
-                                    else if($interval->i >= 1){
+	                                } else if($interval->i >= 1){
                                         if($interval->i == 1){
                                             $time_message = $interval->i." minute ago";
                                         } else {
