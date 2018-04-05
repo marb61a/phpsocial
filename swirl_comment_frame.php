@@ -176,9 +176,21 @@
     				$firstName = $userRow['first_name'];
     				$lastName = $userRow['last_name'];
     				$profilePic = $userRow['profile_pic'];
-				
+                ?>
+                    
+                    <div class="comment_section">
+                        <a href="<?php echo $posted_by ?>" target='_parent'>
+                            <img src='<?php echo $profilePic; ?>' title='<?php echo $posted_by ?>' style='float: left;' height='30'>
+                        </a>
+                        <?php
+                            echo "<a href=".$posted_by." target='_parent'><b>$firstName $lastName: 
+                                </b></a> &nbsp;&nbsp;&nbsp;".$time_message."<br/>".$comment_body."<hr/>
+                            </div>";
                 }
+            } else {
+                echo "<center><br/><br/>No comments to display!</center>";
             }
-        ?>
+    ?>
     </body>
 </html>
+

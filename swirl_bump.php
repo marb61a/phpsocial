@@ -72,6 +72,21 @@
     		        
     		        // Insert the user into the bumps table
 				    $user_bumps = mysqli_query($con, "INSERT INTO user_bumps VALUES ('', '$userLoggedIn', '$post_id')");
+				    
+				    // Get logged in user's total bums
+				    $total_user_bumps = $user_bumped_array['num_bumps'];
+				    
+				    // Increase the total by 1
+				    $total_user_bumps++;
+				    
+				    // Update users bump column value 
+				    $user_bump = mysqli_query($con, "UPDATE users SET num_bumps='$total_user_bumps' WHERE username='$user_bumped'");
+				    
+				    // Insert Notification
+				    // Check if the bump notification is already in the table, if so do not send another
+				    $notice_check = $con->query("SELECT * FROM notifications WHERE user_to='$user_bumped' 
+				        AND user_from='$userLoggedIn' AND link LIKE '%id=$post_id' AND message LIKE '%bumped%'");
+				    
     		    }
     		}
         ?>
