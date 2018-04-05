@@ -513,20 +513,59 @@
                                 <script>
                                     $(document).ready(function(){
                                         $('#post<?php echo $id; ?>').on('click', function(){
-                                            bootbox.confirm("Are you sure you want to delete this swirl?", function(){
+                                            bootbox.confirm("Are you sure you want to delete this swirl?", function(result){
+                                                $.post("includes/form_handlers/delete_swirl.php?post_id=<?php echo $id; ?>",{result:result});
                                                 
-                                            })    
+                                                if(result){
+                                                    location.reload();
+                                                }
+                                            });    
                                         });
                                     });
                                 </script>
                             
                             <?php    
                             }
+                        } //  End while loop
+                        
+                        // If posts were loaded
+                        if($count > $limit){
+                            // This holds the value of the next page and must stay hidden
+                            $str.="<input type='hidden' class='nextpage' value='".($page + 1)."'>
+                            <input type='hidden' class='noMorePosts' value='false'>";
+                        } else {
+                            // If there are no more posts to load show the finished message
+                            $str .= "<input type='hidden' class='noMorePosts' value='true'><p style='text-align: center;'>No More posts to show!</p>";
                         }
                     }
+                    
+                    // Show swirls
+                    echo $str;
                 }
                 
-                //  End while loop
+                    // Post swirl
+                    public function postSwirl($body, $isHidden, $user_to, $is_mobile){
+                        // Remove the HTML tags
+                        $body = strip_tags($body);
+                        
+                        // Escape all special characters
+                        $body = $this->con->real_escape_string($body);
+                        
+                        // Remove spaces such as tabs, spaces etc
+                        $check_empty = preg_replace('/\s+/', '',$body);
+                        
+                        // If the text body is no empty
+                        if($check_empty != ""){
+                            // Check if the user posted a Youtube link, start with splitting teaxt body into an array at spaces
+                            $body_array = preg_split("/\s+/", $body);
+                            
+                            // Iterate through the array
+                            foreach($body_array as $key => $value){
+                                
+                            }
+                        }
+                    }
+                
 	            }
                 
                 // If posts were loaded
