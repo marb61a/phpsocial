@@ -87,7 +87,35 @@
 				    $notice_check = $con->query("SELECT * FROM notifications WHERE user_to='$user_bumped' 
 				        AND user_from='$userLoggedIn' AND link LIKE '%id=$post_id' AND message LIKE '%bumped%'");
 				    
+				    // If notification doesn't exist already
+				    if($notice_check->num_rows == 0){
+				        // If the user is not bumping their own post
+				        if($user_bumped != $userLoggedIn){
+				            $notification = new Notification($con, $userLoggedIn);
+				            $notification->insertNotification($post_id, $user_bumped, "swirl_bump");
+				        }
+				    }
     		    }
+    		    
+    		    if(isset($_POST['unbump_button'])){
+    		        $total_bumps--;
+    		        $bump = mysqli_query($con, "UPDATE swirls SET bumps='$total_bumps' WHERE id='$post_id'");
+				    $remove_user = mysqli_query($con, "DELETE FROM user_bumps WHERE username='$userLoggedIn' AND post_id='$post_id'");
+				    
+    				$total_user_bumps = $user_bumped_array['num_bumps'];
+    				$total_user_bumps--;
+    				$user_bump = mysqli_query($con, "UPDATE users SET num_bumps='$total_user_bumps' WHERE username='$user_bumped'");
+    		    }
+    		}
+    		
+    		// Check for previous bumps
+    		$check_for_bumps = mysqli_query($con, "SELECT * FROM user_bumps WHERE username='$userLoggedIn' AND post_id='$post_id'");
+    		$numrows_bumps = mysqli_num_rows($check_for_bumps);
+    		
+    		if($numrows_bumps >= 1){
+    		    echo '
+    		    
+    		    ';
     		}
         ?>
     </body>

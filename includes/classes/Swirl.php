@@ -554,7 +554,7 @@
                         // Remove spaces such as tabs, spaces etc
                         $check_empty = preg_replace('/\s+/', '',$body);
                         
-                        // If the text body is no empty
+                        // If the text body is not empty
                         if($check_empty != ""){
                             // Check if the user posted a Youtube link, start with splitting teaxt body into an array at spaces
                             $body_array = preg_split("/\s+/", $body);
