@@ -561,8 +561,39 @@
                             
                             // Iterate through the array
                             foreach($body_array as $key => $value){
-                                
+                                // Find the element with the Youtube link
+                                if(strpos($value, "www.youtube.com/watch?v=") !== false){
+                                    // Youtube link found
+                                    // Change 'watch' to 'embed'
+                                    $value = preg_replace("!watch\?v=!", "embed/", $value);
+                                    
+                                    // Enclose in an iFrame
+                                    $value = "<br><iframe width=\'420\' height=\'315\' src=\'" . $value . "\'></iframe><br>";
+                                    
+                                    // Set the array element to a new value
+                                    $body_array[$key] = $value;
+                                }
                             }
+                            
+                            $body = implode(" ", $body_array);
+                            
+                            // Current time and date
+                            $date_added = date("Y-m-d H:i:s");
+                            
+                            // Name of the user who posted
+                            $added_by = $this->user_obj->getUsername();
+                            
+                            // If the user is on their own profile the post is not to a particular user
+                            if($user_to == $added_by){
+                                $user_to = 'none';
+                            }
+                            
+                            // Insert the post
+                            $query = $this->con->query("INSERT INTO swirls VALUES
+                                ('', '$body', '$added_by', '$user_to', '$date_added', '$isHidden', 'no', 'no', '0', '$is_mobile')");
+                            
+                            // Id of the post that was inserted
+                            $returned_id = $this->con->insert_id;
                         }
                     }
                 
@@ -575,8 +606,7 @@
 	            } else  
 	        	    // No more posts to load. Show 'Finished' message
 	        	    $str .= "<input type='hidden' class='noMorePosts' value='true'><p style='text-align: center;'>No more posts to show!</p>";
-	            
-            }
+	            }
             
             //Show swirls
 	        echo $str;
