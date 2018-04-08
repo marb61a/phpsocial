@@ -9,6 +9,10 @@
 <html>
     <head>
         <title>Welcome to PHPSocial</title>
+        <link rel="stylesheet" type="text/css" href="assets/css/register_style.css">
+    	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    	<script src="assets/js/register.js"></script>
     </head>
     <body>
         <div class="wrapper">

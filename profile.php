@@ -188,9 +188,37 @@
         });
         
         $(window).scroll(function(){
+            // Get the height of the div element containing posts
+            var height = $('.swirls_area').height();
             
+            var scroll_top = $(this).scrollTop();
+            var page = $('.swirls_area').find('.nextpage').val();
+		    var noMorePosts = $('.swirls_area').find('.noMorePosts').val();
+		    
+		    if((document.body.scrollHeight == document.body.scrollTop + window.innerHeight) && noMorePosts == 'false'){
+                $('#loading').show();
+                
+                var ajaxreq = $.ajax({
+                    url: "includes/handlers/ajax_load_profile_posts.php",
+                    type: "POST",
+                    data: "page=" + page + "&userLoggedIn=" + userLoggedIn + "&profileUsername=" + profileUsername,
+                    cache: false,
+                    success: function(response){
+                        // Remove the current .nextPage
+                        $(".swirls_area").find(".nextpage").remove();
+                        
+                        // Remove the current .noMorePosts
+                        $('.swirls_area').find('.noMorePosts').remove();
+                        
+                        // Hide the loading icon
+                        $('#loading').hide();
+                    }
+                });
+		    }
+		    
+		    return false
         });
-    });
+    }); // End document.ready
 </script>
 
 <?php include("includes/footer.php");?>

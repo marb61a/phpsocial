@@ -603,7 +603,7 @@
 	            if($count > $limit){
 	        	    // Holds value of next page. Must stay hidden
 	        	    $str.="<input type='hidden' class='nextpage' value='".($page + 1)."'><input type='hidden' class='noMorePosts' value='false'>";
-	            } else  
+	            } else  {
 	        	    // No more posts to load. Show 'Finished' message
 	        	    $str .= "<input type='hidden' class='noMorePosts' value='true'><p style='text-align: center;'>No more posts to show!</p>";
 	            }

@@ -16,10 +16,10 @@
     $con = new mysqli($servername, $username, $password, $database, $dbport);
 
     // Check connection
-    if ($con->connect_error) {
-        die("Connection failed: " . $db->connect_error);
-    } 
-    echo "Connected successfully (".$con->host_info.")";
+    // if ($con->connect_error) {
+    //     die("Connection failed: " . $db->connect_error);
+    // } 
+    // echo "Connected successfully (".$con->host_info.")";
     
     // $con = mysqli_connect("localhost", "root", "","socialmedia");
     
