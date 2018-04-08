@@ -594,6 +594,65 @@
                             
                             // Id of the post that was inserted
                             $returned_id = $this->con->insert_id;
+                            
+                            // If the user posted to another user then insert notification
+                            if($user_to != 'none'){
+                                $notification = new Notification(($this->con, $added_by));
+                                $notification->insertNotification($returned_id, $user_to, "profile_post");
+                            }
+                            
+                            // Update post counts for the user
+                            $user_data_query = $this->con->query("SELECT num_posts FROM users WHERE username='$added_by'");
+                			$user_data = $user_data_query->fetch_array(MYSQLI_ASSOC);
+                			$num_of_posts = $user_data['num_posts'];
+                			$num_of_posts++;
+                			$update_posts_query = $this->con->query("UPDATE users SET num_posts='$num_of_posts' WHERE username='$added_by'");
+                			
+                			// Words to remove from  post
+                			$stopWords = "a about above across after again against all almost alone along already
+                            also although always among an and another any anybody anyone anything anywhere are 
+                            area areas around as ask asked asking asks at away b back backed backing backs be became
+                            because become becomes been before began behind being beings best better between big 
+                            both but by c came can cannot case cases certain certainly clear clearly come could
+                            d did differ different differently do does done down down downed downing downs during
+                            e each early either end ended ending ends enough even evenly ever every everybody
+                            everyone everything everywhere f face faces fact facts far felt few find finds first
+                            for four from full fully further furthered furthering furthers g gave general generally
+                            get gets give given gives go going good goods got great greater greatest group grouped
+                            grouping groups h had has have having he her here herself high high high higher
+                            highest him himself his how however i im if important in interest interested interesting
+                            interests into is it its itself j just k keep keeps kind knew know known knows
+                            large largely last later latest least less let lets like likely long longer
+                            longest m made make making man many may me member members men might more most
+                            mostly mr mrs much must my myself n necessary need needed needing needs never
+                            new new newer newest next no nobody non noone not nothing now nowhere number
+                            numbers o of off often old older oldest on once one only open opened opening
+                            opens or order ordered ordering orders other others our out over p part parted
+                            parting parts per perhaps place places point pointed pointing points possible
+                            present presented presenting presents problem problems put puts q quite r
+                            rather really right right room rooms s said same saw say says second seconds
+                            see seem seemed seeming seems sees several shall she should show showed
+                            showing shows side sides since small smaller smallest so some somebody
+                            someone something somewhere state states still still such sure t take
+                            taken than that the their them then there therefore these they thing
+                            things think thinks this those though thought thoughts three through
+                            thus to today together too took toward turn turned turning turns two
+                            u under until up upon us use used uses v very w want wanted wanting
+                            wants was way ways we well wells went were what when where whether
+                            which while who whole whose why will with within without work
+                            worked working works would x y year years yet you young younger
+                            youngest your yours z lol haha omg fuck fucking shit crap black hey 
+                            ill iframe wonder else like hate sleepy reason for some little no yes bye
+                            choose";
+                            
+                            // Convert the stop words into an array, splitting at the whitespace
+                            $stopWords = preg_split("/[\s,]+/", $stopWords);
+                            
+                            // Remove all punctuation
+                            $no_punctuation = preg_replace("/[^a-zA-Z 0-9]+/", "", $body);
+                            
+                            // Predicting if a user is posting a URL, if so do not check for stop words
+                            
                         }
                     }
                 
