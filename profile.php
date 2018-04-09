@@ -221,4 +221,38 @@
     }); // End document.ready
 </script>
 
+<!-- Modal window for posting  -->
+<div class="modal fade hide" id="post_form" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Write a Swirl to <?php echo $profile_user->getFirstAndLastName(); ?>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>This will appear on this user's profile page and also your Swirlfeed for your friends to see. </p>
+                <form class="profile_post" action="" method="POST">
+                    <div class="form-group">
+                        <textarea class="form-control" name="post_body"></textarea>
+		            	<input type="hidden" name="user_from" value="<?php echo $userLoggedIn; ?>">
+		            	<input type="hidden" name="user_to" value="<?php echo $username; ?>">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close
+                </button>
+	        	<button type="button" class="btn btn-primary" name="post_button" id="submit_profile_post">
+	        	    Post Swirl
+	            </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php include("includes/footer.php");?>
