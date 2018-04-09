@@ -597,7 +597,7 @@
                             
                             // If the user posted to another user then insert notification
                             if($user_to != 'none'){
-                                $notification = new Notification(($this->con, $added_by));
+                                $notification = new Notification($this->con, $added_by);
                                 $notification->insertNotification($returned_id, $user_to, "profile_post");
                             }
                             
@@ -652,10 +652,39 @@
                             $no_punctuation = preg_replace("/[^a-zA-Z 0-9]+/", "", $body);
                             
                             // Predicting if a user is posting a URL, if so do not check for stop words
+                            if(strpos($no_punctuation, "height") === false && strpos($no_punctuation, "width") === false
+				                && strpos($no_punctuation, "http") === false && strpos($no_punctuation, "youtube") === false){
+                                // Convert a user's post into an array that is split at whitespace
+                                $keywords = preg_split("/[\s,]+/", $no_punctuation);
+                                
+                                foreach ($stopWords as $value) {
+                                    foreach($keywords as $key => $value2){
+                                        if(strtolower($value) == strtolower($value2)){
+                                            $keywords[$key] = "";
+                                        }
+                                    }
+                                }
+                                
+                                foreach($keywords as $value){
+                                    $this->calculateTrend(ucfirst($value));
+                                }
+                            }
+                        } // End if checkempty
+                    }
+                    
+                    public function calculateTrend($term){
+                        // Check if the word is already in the trends table
+                        if($term != ''){
+                            $query = $this->con->query("SELECT * FROM trends WHERE title='$term'");
                             
+                            // If there isn't a search query in the table then insert it
+                            if($query->num_rows == 0){
+                                $query = $this->con->query("INSERT INTO trends(title,hits) VALUES('$term','1')");
+                            } else {
+                                $query = $this->con->query("UPDATE trends SET hits=hits+1 WHERE title='$term'");
+                            }
                         }
                     }
-                
 	            }
                 
                 // If posts were loaded
