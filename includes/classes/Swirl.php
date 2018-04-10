@@ -685,6 +685,34 @@
                             }
                         }
                     }
+                    
+                    // Get posts by friends
+                    public function loadPostsProfilePage($data, $limit){
+                        // The page number passed as a parameter
+                        $page = $data['page'];
+                        
+                        $profileUser = $data['profileUsername'];
+                        $userLoggedIn = $this->user_obj->getUsername();
+                        
+                        if($page == 1){
+                            // Start at the first post
+                            $start = 0;
+                        } else {
+                            // Start where the last loaded posts left off
+                            $start = ($page - 1) * $limit;
+                        }
+                        
+                        // Initialise string to hold data to return
+                        $str = '';
+                        
+                        $data = $this->con->query("SELECT * FROM swirls WHERE ((added_by='$profileUser' AND user_to='none') OR user_to='$profileUser')
+	    						AND hidden_mode='no' AND deleted='no' ORDER BY id DESC");
+	    				
+	    				// If the query returns empty there are no more post to load
+	    				if($data->num_rows == 0){
+	    				    
+	    				}
+                    }
 	            }
                 
                 // If posts were loaded
