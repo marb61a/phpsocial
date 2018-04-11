@@ -72,25 +72,46 @@
 		                
 		            } else if($user_object->didSendRequest($user_found['username'])){
 		                // If a request has already been sent to the profile user and is awaiting response
-		                $button = '<input type="submit" name="" class="default" value="Request Sent">'
+		                $button = '<input type="submit" name="" class="default" value="Request Sent">';
 		            } else {
 		                // If the users are not friends, show the add friend button
 		                $button = '<input type="submit" name="'.$user_found['username'].'" class="success" value="Add Friend">';
 		                
+		                // User specific form to handle a button press
+		                if(isset($_POST[ $user_found['username'] ])){
+		                    // Check friendship status
+		                    if ($user_object->isFriend($user_found['username'])){
+		                        $user_object->removeFriend($user_found['username']);
+							    header("Location: http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+							    
+							  // If a request has been received  
+		                    } else if ($user_object->didReceiveRequest($user_found['username'])){
+		                        // Redirect to the requests page
+		                        header("Location: requests.php");
+		                        
+		                        // If a request has been sent
+		                    } else if ($user_object->didSendRequest($user_found['username'])) {
+		                        // Do nothing
+		                        
+		                        // Perform the add friend operation
+		                    } else {
+		                        $user_object->sendRequest($user_found['username']);
+							    header("Location: http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+		                    }
+		                }
 		            }
 		            
-		            // Mutual friends
-					$mutual_friends = $user_object->getMutualFriends($user_found['username'])." friends in common";
-		            
-		            // A user specific form to handle button presses
-		            if(isset($_POST[ $user_found['username'] ]){
-		                // Check the friendship status
-		                
-		            }
+		            echo "<div class='search_result'> 
+		                <div class='searchPageFriendButtons'>
+		                    <form action='' method='POST'>
+		                        ".$button."
+							    <br>
+		                    </form>
+		                </div>
+		            </div>";
 		        }
 		    }
         }
-            
     ?>
 </div>
 
