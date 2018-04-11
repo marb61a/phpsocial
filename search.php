@@ -108,7 +108,17 @@
 							    <br>
 		                    </form>
 		                </div>
-		            </div>";
+		                <div class='result_profile_pic'>
+		                    <a href='".$user_found['username']."'>
+		                        <img src='".$user_found['profile_pic']."' style='height: 100px;'>
+		                    </a>
+		                </div>
+		                <a href='".$user_found['username']."'>".$user_found['first_name']." ".$user_found['last_name']."<br>
+					    <p id='grey'>".$user_found['username']."</p>
+					    </a><br>
+					    ".$mutual_friends."<br>
+		            </div>
+		            <hr />";
 		        }
 		    }
         }
