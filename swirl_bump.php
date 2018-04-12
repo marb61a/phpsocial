@@ -114,9 +114,24 @@
     		
     		if($numrows_bumps >= 1){
     		    echo '
-    		    
+    		        <form action="swirl_bump.php?post_id=' . $post_id . '" method="POST">
+    		            <input type="submit" class="commentBump" name="unbump_button' . $id . '" value="Unbump">
+    		            <div classes="bump_value">
+    		                '. $total_bumps .' Bumps
+    		            </div>
+    		        </form>    
+    		    ';
+    		} else if($numrows_bumps == 0){
+    		    echo '
+    		        <form action="swirl_bump.php?post_id=' . $post_id . '" method="POST">
+    		            <input type="submit" class="commentBump" name="bump_button' . $id . '" value="Bump">
+    		            <div classes="bump_value">
+    		                '. $total_bumps .' Bumps
+    		            </div>
+    		        </form>    
     		    ';
     		}
+    		
         ?>
     </body>
 </html>

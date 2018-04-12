@@ -91,6 +91,15 @@
 				    <a href="index.php">
 				    	<i class="icon fa  fa-home fa-lg"></i>
 				    </a>
+				    
+				    <a href="javascript:void(0);" onclick="getDropdownData('<?php echo $userLoggedIn; ?>', 'notification')">
+				    	<i class="icon fa  fa-bell-o fa-lg"></i>
+				    	<?php
+				    		if($num_notifications > 0){
+				    			echo '<span class="notification_badge" id="unread_notification">'.$num_notifications.'</span>';
+				    		}
+				    	?>
+				    </a>
 				</nav>
 				
 				<!-- This div holds dropdown data notifications or messages -->

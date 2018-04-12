@@ -226,3 +226,6 @@
 <?php if($result_path) { ?>
 	<img src="<?=$result_path?>" style="position:relative; margin:10px auto; width:150px; height:150px;" />
 <?php } ?>
+
+<br /> <br />
+<?php include("includes/footer.php");?>
