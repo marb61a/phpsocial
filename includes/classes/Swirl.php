@@ -710,11 +710,48 @@
 	    				
 	    				// If the query returns empty there are no more post to load
 	    				if($data->num_rows == 0){
+	    				    $num_iterations = 0;
 	    				    
+	    				    // Number of results posted
+	    				    $count = 1;
+	    				    
+	    				    while($row = $data->fetch_array(MYSQLI_ASSOC)){
+	    				        $id = $row['id'];
+                                $body = $row['body'];
+                                $added_by = $row['added_by'];
+                                $date_time = $row['date_added'];
+                                $mobile_device = $row['mobile_device'];
+                                
+                                // If the start position from last loads has not been reached
+                                if($num_iterations++ < $start){
+                                    continue;
+                                }
+                                
+                                // Once 10 posts have been loaded
+                                if($count > $limit){
+                                    break;
+                                } else {
+                                    $count++;
+                                }
+                                
+                                // If the user made the post then show the delete button
+                                if($userLoggedIn == $added_by){
+                                    $delete_button = "<button class='delete_button btn-danger' id='post$id'>X</button>";
+                                } else {
+                                    $delete_button = "";
+                                }
+                                
+                                ?>
+                                
+                                <script>
+                                    
+                                </script>
+	    				    }
 	    				}
                     }
 	            }
                 
+                <?php
                 // If posts were loaded
 	            if($count > $limit){
 	        	    // Holds value of next page. Must stay hidden
