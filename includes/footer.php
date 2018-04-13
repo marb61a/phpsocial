@@ -1,4 +1,4 @@
-		<div class="footer">&copy; Reece Kenney 2014</div>
-	</div>
-</body>
+			<div class="footer">&copy; PHP 2018</div>
+		</div>
+    </body>
 </html>

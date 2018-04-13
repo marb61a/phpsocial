@@ -100,6 +100,23 @@
 				    		}
 				    	?>
 				    </a>
+				    
+				    <a href="requests.php">
+						<i class="icon fa  fa-users fa-lg"></i>
+						<?php 
+							if($num_friend_requests > 0){
+								echo '<span class="notification_badge" id="unread_request">'.$num_friend_requests.'</span>';
+							}
+						?>
+					</a>
+					
+					<a href="settings.php">
+						<i class="icon fa  fa-cog fa-lg"></i>
+					</a>
+				
+					<a href="includes/handlers/logout.php">
+						<i class="icon fa  fa-sign-out fa-lg"></i>
+					</a>
 				</nav>
 				
 				<!-- This div holds dropdown data notifications or messages -->
@@ -152,6 +169,4 @@
 					});
 				});
 			</script>
-        </div>
-    </body>
-</html>
+        <div class="wrapper">
