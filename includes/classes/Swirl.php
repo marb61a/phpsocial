@@ -741,11 +741,39 @@
                                     $delete_button = "";
                                 }
                                 
+                                $get_user_details = $this->con->query("SELECT first_name, last_name, profile_pic FROM users WHERE username='$added_by'");
+                                $userRow = $get_user_details->fetch_array(MYSQLI_ASSOC);
+                
+                                $firstName = $userRow['first_name'];
+                                $lastName = $userRow['last_name'];
+                                $profile_pic = $userRow['profile_pic'];
+                                
                                 ?>
                                 
-                                <script>
-                                    
+                                <script language="javascript">
+                                    function toggle<?php echo $id; ?>() {
+                                        var target = ( event.target );
+                                        
+                                        if(!target.is("a")){
+                                            var ele = document.getElementById("toggleComment<?php echo $id; ?>");
+                                            
+                                            if(ele.style.display == "block"){
+                                                ele.style.display = "none";
+                                            } else {
+                                                ele.style.display = "block";
+                                            }
+                                        }
+                                    }
                                 </script>
+                                <?php
+                                    $comments_check = mysqli_query($this->con, "SELECT * FROM swirl_comments WHERE post_id='$id'");
+                                    $comments_check_num_rows = mysqli_num_rows($comments_check);
+                    
+                                    $date_time_now = date("Y-m-d H:i:s");
+                                    $start_date = new DateTime($date_time);
+                                    $end_date = new DateTime($date_time_now);
+                                    $interval = $start_date->diff($end_date);
+                                ?>
 	    				    }
 	    				}
                     }
