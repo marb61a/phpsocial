@@ -90,7 +90,17 @@ $(document).click(function(e){
     }
     
     // If the user clicks away from search bar and search results, hide drop down results
-    
+    if(e.target.class != 'search_results' && e.target.id != 'search-text-input'){
+        // Remove drop down results
+        
+        //Remove drop down results from under search bar
+        $(".search_results").html("");
+        
+        //Remove drop down results footer 
+        $(".search_results_footer").html(""); 
+        $(".search_results_footer").toggleClass("search_results_footer_empty" );
+        $(".search_results_footer").toggleClass("search_results_footer" )
+    }
 });
 
 $(document).ready(function(){
@@ -98,6 +108,27 @@ $(document).ready(function(){
     $('#search-text-input').focus(function(){
         // Make the width larger
         $(this).animate({width: '250px'}, 500);
+        
+        // Make the div on the search bar act like a submit button
+        $('.button_holder').on('click', function(){
+            document.search_form.submit();
+        });
+        
+        // Button to submit profile post
+        $("#submit_profile_post").click(function(){
+            $.ajax({
+                type: "POST",
+                url: "includes/handlers/ajax_submit_profile_post.php", 
+                data: $('form.profile_post').serialize(),     
+                success: function(msg){
+                    $("#post_form").modal('hide');
+                    location.reload();
+                },
+                failure: function(){
+                    alert("failure");
+                }
+            });
+        });
     });
     
 });
