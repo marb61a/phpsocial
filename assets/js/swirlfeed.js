@@ -101,6 +101,18 @@ $(document).click(function(e){
         $(".search_results_footer").toggleClass("search_results_footer_empty" );
         $(".search_results_footer").toggleClass("search_results_footer" )
     }
+    
+    // If the user clicks away from dropdown data window then hide drop down results
+    if(e.target.className != 'dropdown_data_window'){
+        // Remoove drop down window starting with padding and height
+        $('dropdown_data_window').css({
+            "padding": "0px",
+            "height": "0px"
+        });
+        
+        // Remove the content
+        $(".dropdown_data_window").html("");
+    }
 });
 
 $(document).ready(function(){
@@ -108,27 +120,26 @@ $(document).ready(function(){
     $('#search-text-input').focus(function(){
         // Make the width larger
         $(this).animate({width: '250px'}, 500);
-        
-        // Make the div on the search bar act like a submit button
-        $('.button_holder').on('click', function(){
-            document.search_form.submit();
-        });
-        
-        // Button to submit profile post
-        $("#submit_profile_post").click(function(){
-            $.ajax({
-                type: "POST",
-                url: "includes/handlers/ajax_submit_profile_post.php", 
-                data: $('form.profile_post').serialize(),     
-                success: function(msg){
-                    $("#post_form").modal('hide');
-                    location.reload();
-                },
-                failure: function(){
-                    alert("failure");
-                }
-            });
-        });
+    });   
+    
+    // Make the div on the search bar act like a submit button
+    $('.button_holder').on('click', function(){
+        document.search_form.submit();
     });
     
+    // Button to submit profile post
+    $("#submit_profile_post").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "includes/handlers/ajax_submit_profile_post.php", 
+            data: $('form.profile_post').serialize(),     
+            success: function(msg){
+                $("#post_form").modal('hide');
+                location.reload();
+            },
+            failure: function(){
+                alert("failure");
+            }
+        });
+    });
 });
